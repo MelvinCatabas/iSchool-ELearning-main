@@ -14,7 +14,7 @@ include('./mainInclude/header.php');
     <div class="vid-overlay"></div>
   </div>
   <div class="vid-content">
-    <h1 class="my-content">Welcome to NEUST</h1>
+    <h1 class="my-content">Welcome to <b>NEUST</b></h1>
     <small class="my-content">Learn and Implement</small><br />
     <?php
     if (!isset($_SESSION['is_login'])) {
@@ -28,9 +28,9 @@ include('./mainInclude/header.php');
 </div> <!-- End Video Background -->
 
 
-<div class="container mt-5"> <!-- Start Most Popular Course -->
+<!-- <div class="container mt-5"> 
   <h1 class="text-center">Popular Course</h1>
-  <div class="card-deck mt-4"> <!-- Start Most Popular Course 1st Card Deck -->
+  <div class="card-deck mt-4">
     <?php
     $sql = "SELECT * FROM course LIMIT 3";
     $result = $conn->query($sql);
@@ -52,9 +52,12 @@ include('./mainInclude/header.php');
             </a>  ';
       }
     }
-    ?>
-  </div> <!-- End Most Popular Course 1st Card Deck -->
-  <div class="card-deck mt-4"> <!-- Start Most Popular Course 2nd Card Deck -->
+    ?> -->
+
+
+<!--     
+  </div> 
+  <div class="card-deck mt-4"> 
     <?php
     $sql = "SELECT * FROM course LIMIT 3,3";
     $result = $conn->query($sql);
@@ -76,15 +79,20 @@ include('./mainInclude/header.php');
                 </a>  ';
       }
     }
-    ?>
-  </div> <!-- End Most Popular Course 2nd Card Deck -->
+    ?> -->
+
+<!-- End Most Popular Course 2nd Card Deck --> 
+<!-- 
+  </div> 
   <div class="text-center m-2">
     <a class="btn btn-danger btn-sm btns" href="courses.php">View All Course</a>
   </div>
-</div> <!-- End Most Popular Course -->
+</div> -->
+
+<!-- End Most Popular Course -->
 
 <!-- Start Students Testimonial -->
-<div class="container-fluid mt-5" style="background-color: #4B7289" id="Feedback">
+<!-- <div class="container-fluid mt-5" style="background-color: #4B7289" id="Feedback">
   <h1 class="text-center testyheading p-4"> Student's Feedback </h1>
   <div class="row">
     <div class="col-md-12">
@@ -114,7 +122,8 @@ include('./mainInclude/header.php');
       </div>
     </div>
   </div>
-</div> <!-- End Students Testimonial -->
+</div>  -->
+<!-- End Students Testimonial -->
 
 
 <!-- Start About Section -->
