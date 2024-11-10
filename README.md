@@ -3,12 +3,6 @@
 iSchool (E-Learning Management System)” is comes under the Web Based Application. This application is developed with the help of HTML, CSS, Bootstrap, PHP, MySQL. iSchool is a powerful Learning Management System implementing the latest trends in e-learning. A flexible web-based learning experience allows you to go through a guided 
 curriculum or choose lessons on an as-needed basis.
 
-![](website-images/website-HomePage.PNG)
-![](website-images/website-Courses.PNG)
-![](website-images/website-Student-profile.PNG)
-![](website-images/website-AdminDashboard.PNG)
-![](website-images/website-AdminCourses.PNG)
-![](website-images/website-Watch-Course.PNG)
 
 ## Technologies used in the project
 
