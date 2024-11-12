@@ -2,8 +2,8 @@
 if(!isset($_SESSION)){ 
   session_start(); 
 }
-define('TITLE', 'My Course');
-define('PAGE', 'mycourse');
+define('TITLE', 'my Course');
+define('PAGE', 'myCourse');
 include('./stuInclude/header.php'); 
 include_once('../dbConnection.php');
 
