@@ -5,11 +5,12 @@
 ?>  
     <div class="container-fluid bg-dark"> <!-- Start Course Page Banner -->
       <div class="row">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGtlfMHr3H3zVcof-QKUTs1p-mugN_Y9pmFOLw_Gv7EqrLRFMzSPcTYboJglezLLTuNjzftYKxKRp6f57ifHcQObyd0f2cZtTepXDI-QzItYB5dS9sBM4HwjUg0qGPvyL4AqMj7O-tBOAq/w1200-h630-p-k-no-nu/1549285206999.jpg" alt="courses" style="height:200px; width:100%; object-fit:cover; box-shadow:10px;"/>
+        <!-- <img src="https://i0.wp.com/neust.edu.ph/wp-content/uploads/2022/04/SUMACAB-1.jpg?resize=768%2C300&ssl=1" alt="courses" style="height:200px; width:100%; object-fit:cover; box-shadow:10px;"/> -->
       </div> 
     </div> <!-- End Course Page Banner -->
-
-    <div class="container mt-5"> <!-- Start All Course -->
+    <br>
+    <br>
+    <div class="container mt-5" style="border:2px solid #e9ecef; border-radius:12px;"> <!-- Start All Course -->
       <?php
           if(isset($_GET['course_id'])){
            $course_id = $_GET['course_id'];
@@ -20,7 +21,7 @@
             while($row = $result->fetch_assoc()){
               echo ' 
                 <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 mt-3">
                   <img src="'.str_replace('..', '.', $row['course_img']).'" class="card-img-top" alt="Guitar" />
 
                 </div>
@@ -31,7 +32,7 @@
                     <p class="card-text"> Duration: '.$row['course_duration'].'</p>
                     <form action="checkout.php" method="post">
               
-                      <button type="submit" class="btn btn-primary text-white font-weight-bolder float-right" name="buy">Buy Now</button>
+                      <button type="submit" class="btn btn-primary text-white font-weight-bolder float-right mb-3" name="buy">Enroll</button>
                     </form>
                   </div>
                 </div>
@@ -74,5 +75,5 @@
       </div>  
      <?php 
   // Footer Include from mainInclude 
-  include('./mainInclude/footer.php'); 
+  // include('./mainInclude/footer.php'); 
 ?>  
