@@ -8,14 +8,14 @@ $db_name = "lms_db";
 $conn = new mysqli($db_host, $db_user, $db_password, $db_name);
 
 // Check Connection
-if($conn->connect_error) {
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 $db_selected = mysqli_select_db($conn, $db_name);
 
+// If the database does not exist, create it
 if (!$db_selected) {
-    // If database does not exist, create it
     $sql = "CREATE DATABASE $db_name";
     if ($conn->query($sql) === TRUE) {
         // echo "Database $db_name created successfully.";
@@ -25,31 +25,33 @@ if (!$db_selected) {
     }
 }
 
-$sql = "SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
+// SQL statements to create tables and insert data
+$sql = "
+SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = '+00:00';
 
 CREATE TABLE IF NOT EXISTS `admin` (
-  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
-  `admin_name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `admin_email` varchar(255) COLLATE utf8_bin NOT NULL,
-  `admin_pass` varchar(255) COLLATE utf8_bin NOT NULL,
+  `admin_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `admin_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `admin_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `admin_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+);
 
 INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_email`, `admin_pass`) VALUES
 (1, 'Admin Kumar', 'admin@gmail.com', 'admin') ON DUPLICATE KEY UPDATE admin_id=admin_id;
 
 CREATE TABLE IF NOT EXISTS `course` (
-  `course_id` int(11) NOT NULL AUTO_INCREMENT,
-  `course_name` text COLLATE utf8_bin NOT NULL,
-  `course_desc` text COLLATE utf8_bin NOT NULL,
-  `course_author` varchar(255) COLLATE utf8_bin NOT NULL,
-  `course_img` text COLLATE utf8_bin NOT NULL,
-  `course_duration` text COLLATE utf8_bin NOT NULL,
-  `course_price` int(11) NOT NULL,
-  `course_original_price` int(11) NOT NULL,
+  `course_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `course_name` TEXT COLLATE utf8_bin NOT NULL,
+  `course_desc` TEXT COLLATE utf8_bin NOT NULL,
+  `course_author` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `course_img` TEXT COLLATE utf8_bin NOT NULL,
+  `course_duration` TEXT COLLATE utf8_bin NOT NULL,
+  `course_price` INT(11) NOT NULL,
+  `course_original_price` INT(11) NOT NULL,
   PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -64,15 +66,15 @@ INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `course_author`
 (17, 'Learn React Native', 'This is React Native for Android and iOS app development', 'GeekyShows', '../image/courseimg/Machine.jpg', '2 months', 200, 3000)
 ON DUPLICATE KEY UPDATE course_id=course_id;
 
-CREATE TABLE `courseorder` (
-  `co_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stu_email` varchar(255) COLLATE utf8_bin NOT NULL,
-  `course_id` int(11) NOT NULL,
-  `status` varchar(255) COLLATE utf8_bin NOT NULL,
-  `respmsg` text COLLATE utf8_bin NOT NULL,
-  `amount` int(11) NOT NULL,
-  `order_date` date NOT NULL,
+CREATE TABLE IF NOT EXISTS `courseorder` (
+  `co_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `order_id` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `stu_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `course_id` INT(11) NOT NULL,
+  `status` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `respmsg` TEXT COLLATE utf8_bin NOT NULL,
+  `amount` INT(11) NOT NULL,
+  `order_date` DATE NOT NULL,
   PRIMARY KEY (`co_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -83,10 +85,10 @@ INSERT INTO `courseorder` (`co_id`, `order_id`, `stu_email`, `course_id`, `statu
 (9, 'ORDS78666589', 'ignou@ischool.com', 10, 'TXN_SUCCESS', 'Txn Success', 800, '2019-09-19'),
 (10, 'ORDS59885531', 'sonam@gmail.com', 10, 'TXN_SUCCESS', 'Txn Success', 800, '2020-07-04');
 
-CREATE TABLE `feedback` (
-  `f_id` int(11) NOT NULL AUTO_INCREMENT,
-  `f_content` text COLLATE utf8_bin NOT NULL,
-  `stu_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `f_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `f_content` TEXT COLLATE utf8_bin NOT NULL,
+  `stu_id` INT(11) NOT NULL,
   PRIMARY KEY (`f_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -97,26 +99,26 @@ INSERT INTO `feedback` (`f_id`, `f_content`, `stu_id`) VALUES
 (10, 'Think Magical, that is one thing that iSchool urges.', 174),
 (12, 'Knowledge is power.', 180);
 
-CREATE TABLE `lesson` (
-  `lesson_id` int(11) NOT NULL AUTO_INCREMENT,
-  `lesson_name` text COLLATE utf8_bin NOT NULL,
-  `lesson_desc` text COLLATE utf8_bin NOT NULL,
-  `lesson_link` text COLLATE utf8_bin NOT NULL,
-  `course_id` int(11) NOT NULL,
-  `course_name` text COLLATE utf8_bin NOT NULL,
+CREATE TABLE IF NOT EXISTS `lesson` (
+  `lesson_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `lesson_name` TEXT COLLATE utf8_bin NOT NULL,
+  `lesson_desc` TEXT COLLATE utf8_bin NOT NULL,
+  `lesson_link` TEXT COLLATE utf8_bin NOT NULL,
+  `course_id` INT(11) NOT NULL,
+  `course_name` TEXT COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`lesson_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `lesson` (`lesson_id`, `lesson_name`, `lesson_desc`, `lesson_link`, `course_id`, `course_name`) VALUES
 (32, 'Introduction to Python ', 'Introduction to Python Desc', '../lessonvid/video2.mp4', 10, 'Learn Python A-Z');
 
-CREATE TABLE `student` (
-  `stu_id` int(11) NOT NULL AUTO_INCREMENT,
-  `stu_name` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stu_email` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stu_pass` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stu_occ` varchar(255) COLLATE utf8_bin NOT NULL,
-  `stu_img` text COLLATE utf8_bin NOT NULL,
+CREATE TABLE IF NOT EXISTS `student` (
+  `stu_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `stu_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `stu_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `stu_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `stu_occ` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+  `stu_img` TEXT COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`stu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -127,9 +129,9 @@ INSERT INTO `student` (`stu_id`, `stu_name`, `stu_email`, `stu_pass`, `stu_occ`,
 COMMIT;
 ";
 
-// Execute the SQL statement
+// Execute the SQL statements
 if ($conn->multi_query($sql)) {
-  // echo "<div id='successMessage'>Database $db_name created successfully.</div>";
+    // echo "<div id='successMessage'>Database $db_name created successfully.</div>";
 } else {
     echo "Error creating tables: " . $conn->error;
 }
