@@ -59,12 +59,12 @@ if (!isset($_SESSION['is_login'])) {
       $course_id = $row['course_id'];
       echo '
       <!-- Card -->
-      <a href="coursedetails.php?course_id=' . $course_id . '" class="col-md-3 mb-3">
+      <a href="coursedetails.php?course_id=' . $course_id . '" class="col-md-3 mb-3" style="text-decoration:none;">
         <div class="card" style="height:400px">
           <img src="' . str_replace('..', '.', $row['course_img']) . '" class="card-img-top" alt="Course Image"/>
           <div class="card-body">
-            <h5 class="card-title">' . $row['course_name'] . '</h5>
-            <p class="card-text">' . $row['course_desc'] . '</p>
+            <h5 class="card-title" style="color:#252525;">' . $row['course_name'] . '</h5>
+            <p class="card-text" style="color:#2e2e2e;">' . $row['course_desc'] . '</p>
           </div>
           <div class="card-footer d-flex align-items-center justify-content-between">
             <div>
@@ -84,7 +84,7 @@ if (!isset($_SESSION['is_login'])) {
 
   // Add a button to view all courses, passing 'view_all=true' in the URL
   echo '<div class="text-center m-4">
-          <a class="btn btn-danger btn-sm btns" href="index.php?view_all=' . (isset($_GET['view_all']) && $_GET['view_all'] == 'true' ? 'false' : 'true') . '">' . $buttonText . '</a>
+          <a class="btns btn btn-sm" href="index.php?view_all=' . (isset($_GET['view_all']) && $_GET['view_all'] == 'true' ? 'false' : 'true') . '">' . $buttonText . '</a>
         </div>';
 }
 ?>

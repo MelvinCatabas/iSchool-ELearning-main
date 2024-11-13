@@ -22,9 +22,12 @@
   background-color: #f8961f;
 }
 
+.btns:hover{
+  color: #ffffff;
+}
+
 .custom-nav-item:hover {
   background-color: #225470;
-  border: solid #225470 1px;
   border-radius: 10px;
 }
 

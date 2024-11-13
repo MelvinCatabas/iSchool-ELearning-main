@@ -25,9 +25,19 @@
           background-color: transparent;
         }
     
-        .navbar-nav .nav-link {
-            color: #ffffff !important; 
+        /* .navbar-nav .nav-link {
+            color: #ffffff; 
+        } */
+
+        .navbar-nav .nav-link:hover{
+            color: #e9ecef;
         }
+
+        .l{
+            color: #1d3698;
+        }
+
+
         .navbar-brand {
             font-size: 1.5em;
             font-weight: bold;
@@ -42,6 +52,7 @@
         }        
 
         .bt{
+            color: #ffffff;
             width: 82px;
             padding: 8px;
             background-color: #f8961f;
@@ -51,6 +62,7 @@
         }
 
         .bx{
+            color: #ffffff;
             width: 82px;
             padding: 8px;
             background-color: #1f4966;
@@ -59,6 +71,7 @@
         }
 
         .bc{
+            color: #ffffff;
             width: 82px;
             padding: 8px;
             background-color: #343a40;
@@ -70,20 +83,32 @@
 
     <!-- Start Navigation -->
     <nav class="navbar navbar-expand-md fixed-top">
-        <a href="index.php" class="navbar-brand"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />    NEUST</a>
-        <!-- <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span> -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">=</span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="myMenu">
-            <ul class="navbar-nav ml-auto">
+       
                 <?php 
                     session_start();   
                     if (isset($_SESSION['is_login'])){
-                        echo '<li class="nav-item"><a href="student/studentProfile.php" class="nav-link">My Profile</a></li>';
-                        echo '<li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>';
+                        echo '<a href="index.php" class="navbar-brand"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />    <span style="color:#1d3698;">NEUST</span></a>
+                        <!-- <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span> -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon">=</span>
+                        </button>
+                        
+                        <div class="collapse navbar-collapse" id="myMenu">
+                            <ul class="navbar-nav ml-auto">';
+                            
+                        echo '<li class="nav-item"><a href="student/studentProfile.php" class="nav-link l">My Profile</a></li>';
+                        echo '<li class="nav-item"><a href="logout.php" class="nav-link l">Logout</a></li>';
                     } else {
+
+                        echo '<a href="index.php" class="navbar-brand"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />  NEUST</a>
+                        <!-- <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span> -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon">=</span>
+                        </button>
+                        
+                        <div class="collapse navbar-collapse" id="myMenu">
+                            <ul class="navbar-nav ml-auto">';
+
                         echo '<li class="nav-item"><a href="#login" class="bt nav-link" data-toggle="modal" data-target="#stuLoginModalCenter">Login</a></li>';
                         echo '<li class="nav-item"><a href="#signup" class="bx nav-link" data-toggle="modal" data-target="#stuRegModalCenter">Signup</a></li>';     
                     }
