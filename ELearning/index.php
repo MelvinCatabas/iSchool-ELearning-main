@@ -8,9 +8,9 @@ include('./mainInclude/header.php');
 
 <link rel="stylesheet" href="./css/style.css">
 <!-- Start Video Background-->
-    <?php
-    if (!isset($_SESSION['is_login'])) {
-      echo '<div class="container-fluid remove-vid-marg">
+<?php
+if (!isset($_SESSION['is_login'])) {
+  echo '<div class="container-fluid remove-vid-marg">
   <div class="vid-parent">
     <video playsinline autoplay muted loop>
       <source src="video/neust.mp4" />
@@ -19,21 +19,15 @@ include('./mainInclude/header.php');
   </div>
   <div class="vid-content">
     <h1 class="my-content">Welcome to <b>NEUST</b></h1>
-<<<<<<< Updated upstream
     <small class="my-content">Learn and Implement</small><br />';
-=======
-    <small class="my-content" Style="font-size:16px;">Learn and Implement</small><br />
-    <?php
-    if (!isset($_SESSION['is_login'])) {
->>>>>>> Stashed changes
-      echo '<a class="btn btns mt-3" href="#" data-toggle="modal" data-target="#stuRegModalCenter">Get Started</a>';
-    } else {
-      // echo '<a class="btn btn-primary mt-3" href="student/studentProfile.php">My Profile</a>';
-    }
+  echo '<a class="btn btns mt-3" href="#" data-toggle="modal" data-target="#stuRegModalCenter">Get Started</a>';
+} else {
+  // echo '<a class="btn btn-primary mt-3" href="student/studentProfile.php">My Profile</a>';
+}
 
-    ?>
+?>
 
-  </div>
+</div>
 </div>
 
 
@@ -183,4 +177,3 @@ if (!isset($_SESSION['is_login'])) {
 include('./mainInclude/footer.php');
 
 ?>
-

@@ -1,12 +1,13 @@
  <!-- Start Footer -->
  <footer class="container-fluid bg-dark text-center p-2">
-   <small class="text-white"> &copy; || Group || <?php
-                                                  if (isset($_SESSION['is_admin_login'])) {
-                                                    echo '<a href="admin/adminDashboard.php"> Admin Dashboard</a> <a href="logout.php">Logout</a>';
-                                                  } else {
-                                                    echo '<a href="#login" data-toggle="modal" data-target="#adminLoginModalCenter"> Admin Login</a>';
-                                                  }
-                                                  ?>
+   <small class="text-white"> &copy; || Group ||
+     <?php
+      if (isset($_SESSION['is_admin_login'])) {
+        echo '<a href="admin/adminDashboard.php"> Admin Dashboard</a> <a href="logout.php">Logout</a>';
+      } else {
+        echo '<a href="#login" data-toggle="modal" data-target="#adminLoginModalCenter"> Admin Login</a>';
+      }
+      ?>
    </small>
 
  </footer> <!-- End Footer -->
@@ -70,13 +71,8 @@
 
              <form role="form" id="stuRegForm">
                <div class="form-outline mb-4">
-<<<<<<< Updated upstream
-                 <label class="form-label" for="stuLogEmail" >Email Address</label>
-                 <input type="text" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="ex: Dela Cruz"name="stuLogEmail" id="stuLogEmail">
-=======
-                 <label class="form-label" for="stuLogEmail">Name</label>
+                 <label class="form-label" for="stuLogEmail">Email Address</label>
                  <input type="text" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="ex: Dela Cruz" name="stuLogEmail" id="stuLogEmail">
->>>>>>> Stashed changes
                </div>
 
                <div class="form-outline mb-4">
@@ -138,7 +134,7 @@
 
          <div class="row justify-content-center">
            <div class="col-md-7">
-           <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px; font-size:24px;">Instructor</h5>
+             <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px; font-size:24px;">Instructor</h5>
              <!-- <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px; font-size:24px;">Sign into your account</h5> -->
 
              <form role="form" id="stuRegForm">
