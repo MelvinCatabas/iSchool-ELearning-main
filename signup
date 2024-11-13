@@ -26,6 +26,7 @@ try {
         `instructor_sex` VARCHAR(10) COLLATE utf8_bin NOT NULL,
         `instructor_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         `instructor_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_img` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         PRIMARY KEY (`instructor_id`)
     );
     ";
@@ -138,8 +139,8 @@ try {
 
     // Insert Instructor Record
     $instructor_insert = "
-    INSERT INTO `instructor` (`instructor_fname`, `instructor_lname`, `instructor_dob`, `instructor_sex`, `instructor_email`, `instructor_pass`) 
-    VALUES ('Alice', 'Smith', '1985-04-15', 'Female', 'alice.smith@example.com', 'instructor123');
+    INSERT INTO `instructor` (`instructor_fname`, `instructor_lname`, `instructor_dob`, `instructor_sex`, `instructor_email`, `instructor_pass`, `instructor_img`) 
+    VALUES ('Alice', 'Smith', '1985-04-15', 'Female', 'alice.smith@example.com', 'instructor123', './image/stu/Kenneth.jpg');
     ";
     if (!$conn->query($instructor_insert)) {
         throw new Exception("Error inserting instructor: " . $conn->error);
@@ -174,8 +175,23 @@ try {
 
     // Insert Lesson Record
     $lesson_insert = "
-    INSERT INTO `lesson` (`lesson_name`, `lesson_desc`, `lesson_link`, `course_id`) 
-    VALUES ('Introduction to PHP', 'Learn the basics of PHP programming language.', 'lesson1_video.mp4', 1);
+ INSERT INTO `lesson` (`lesson_id`, `lesson_name`, `lesson_desc`, `lesson_link`, `course_id`) VALUES
+(32, 'Introduction to Python', 'Introduction to Python Desc', '../lessonvid/video2.mp4', 1),
+(33, 'How Python Works', 'How Python Works Descc', '../lessonvid/video3.mp4', 1),
+(34, 'Why Python is powerful', 'Why Python is powerful Desc', '../lessonvid/video9.mp4', 1),
+(35, 'Everyone should learn Python', 'Everyone should learn Python Desccc', '../lessonvid/video1.mp4', 1),
+(36, 'Introduction to PHP', 'Introduction to PHP Desc', '../lessonvid/video4.mp4', 1),
+(37, 'How PHP works', 'How PHP works Desc', '../lessonvid/video5.mp4', 1),
+(38, 'is PHP really easy ?', 'is PHP really easy ? desc', '../lessonvid/video6.mp4', 1),
+(39, 'Introduction to Guitar44', 'Introduction to Guitar desc1', '../lessonvid/video7.mp4', 1),
+(40, 'Type of Guitar', 'Type of Guitar Desc2', '../lessonvid/video8.mp4', 1),
+(41, 'Intro Hands-on Artificial Intelligence', 'Intro Hands-on Artificial Intelligence desc', '../lessonvid/video10.mp4', 1),
+(42, 'How it works', 'How it works descccccc', '../lessonvid/video11.mp4', 1),
+(43, 'Inro Learn Vue JS', 'Inro Learn Vue JS desc', '../lessonvid/video12.mp4', 1),
+(44, 'intro Angular JS', 'intro Angular JS desc', '../lessonvid/video13.mp4', 1),
+(48, 'Intro to Python Complete', 'This is lesson number 1', '../lessonvid/video11.mp4', 1),
+(49, 'Introduction to React Native', 'This intro video of React native', '../lessonvid/video11.mp4', 1);
+
     ";
     if (!$conn->query($lesson_insert)) {
         throw new Exception("Error inserting lesson: " . $conn->error);
