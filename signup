@@ -1,0 +1,104 @@
+<section class="vh-100" style="background-color: #9A616D;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-8">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="card-body p-4 text-black">
+            
+            <!-- Logo and Header -->
+            <div class="d-flex align-items-center justify-content-center mb-4">
+              <img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="60px" style="margin-right: 1rem;" />
+              <span class="h1 fw-bold mb-0">NEUST</span>
+            </div>
+            
+            <div class="row justify-content-center">
+              <div class="col-md-7">
+                <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">New User? Sign Up</h5>
+                
+                <form role="form" id="stuRegForm">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="stuname">Name</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Name" name="stuname" id="stuname">
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="stuemail">Email</label>
+                    <input type="email" class="form-control form-control-lg" placeholder="Email" name="stuemail" id="stuemail">
+                    <small class="form-text">We'll never share your email with anyone else.</small>
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="stupass">New Password</label>
+                    <input type="password" class="form-control form-control-lg" placeholder="Password" name="stupass" id="stupass">
+                  </div>
+                  
+                  <button type="button" class="btn btn-primary btn-lg btn-block" id="signup" onclick="addStu()">Sign Up</button>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="text-center mt-4">
+              <a href="#!" class="small text-muted">Terms of use.</a>
+              <a href="#!" class="small text-muted mx-3">Privacy policy</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- sign up -->
+<section class="vh-100" style="background-color: #9A616D;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-8">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="card-body p-4 text-black">
+            
+            <!-- Logo and Header -->
+            <div class="d-flex align-items-center justify-content-center mb-4">
+              <img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="60px" style="margin-right: 1rem;" />
+              <span class="h1 fw-bold mb-0">NEUST</span>
+            </div>
+            
+            <div class="row justify-content-center">
+              Login Form Section
+              <div class="col-md-5">
+                <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">Sign into your account</h5>
+                <form role="form" id="stuLoginForm">
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="stuLogEmail">Email</label>
+                    <input type="email" id="stuLogEmail" class="form-control form-control-lg" placeholder="Email" />
+                  </div>
+                  
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="stuLogPass">Password</label>
+                    <input type="password" id="stuLogPass" class="form-control form-control-lg" placeholder="Password" />
+                  </div>
+                  
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <a class="small text-muted" href="#!">Forgot password?</a>
+                  </div>
+                  
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="button" id="stuLoginBtn" onclick="checkStuLogin()">Login</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="text-center mt-4">
+              <a href="#!" class="small text-muted">Terms of use.</a>
+              <a href="#!" class="small text-muted mx-3">Privacy policy</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
