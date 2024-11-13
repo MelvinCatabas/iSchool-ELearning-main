@@ -2,8 +2,9 @@
 header("Pragma: no-cache");
 header("Cache-Control: no-cache");
 header("Expires: 0");
-include('../dbConnection.php');
+include('./dbConnection.php');
 session_start();
+
 // following files need to be included
 require_once("./lib/config_paytm.php");
 require_once("./lib/encdec_paytm.php");

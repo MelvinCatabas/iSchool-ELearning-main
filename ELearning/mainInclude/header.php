@@ -35,6 +35,23 @@
 
         .navbar-toggler-icon{
           color: #ffffff;
+        }        
+
+        .bt{
+            width: 82px;
+            padding: 8px;
+            background-color: #f8961f;
+            border-radius: 8px;
+            margin-right: 8px;
+            text-align: center;
+        }
+
+        .bx{
+            width: 82px;
+            padding: 8px;
+            background-color: #1f4966;
+            border-radius: 8px;
+            text-align: center;
         }
     </style>
 
@@ -54,8 +71,8 @@
                         echo '<li class="nav-item"><a href="student/studentProfile.php" class="nav-link">My Profile</a></li>';
                         echo '<li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>';
                     } else {
-                        echo '<li class="nav-item"><a href="#login" class="nav-link" data-toggle="modal" data-target="#stuLoginModalCenter">Login</a></li>';
-                        echo '<li class="nav-item"><a href="#signup" class="nav-link" data-toggle="modal" data-target="#stuRegModalCenter">Signup</a></li>';
+                        echo '<li class="nav-item"><a href="#login" class="bt nav-link" data-toggle="modal" data-target="#stuLoginModalCenter">Login</a></li>';
+                        echo '<li class="nav-item"><a href="#signup" class="bx nav-link" data-toggle="modal" data-target="#stuRegModalCenter">Signup</a></li>';
                     }
                 ?> 
             </ul>

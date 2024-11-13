@@ -5,7 +5,7 @@
 ?>  
     <div class="container-fluid bg-dark"> <!-- Start Course Page Banner -->
       <div class="row">
-        <img src="./image/coursebanner.jpg" alt="courses" style="height:200px; width:100%; object-fit:cover; box-shadow:10px;"/>
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGtlfMHr3H3zVcof-QKUTs1p-mugN_Y9pmFOLw_Gv7EqrLRFMzSPcTYboJglezLLTuNjzftYKxKRp6f57ifHcQObyd0f2cZtTepXDI-QzItYB5dS9sBM4HwjUg0qGPvyL4AqMj7O-tBOAq/w1200-h630-p-k-no-nu/1549285206999.jpg" alt="courses" style="height:200px; width:100%; object-fit:cover; box-shadow:10px;"/>
       </div> 
     </div> <!-- End Course Page Banner -->
 
@@ -22,6 +22,7 @@
                 <div class="row">
                 <div class="col-md-4">
                   <img src="'.str_replace('..', '.', $row['course_img']).'" class="card-img-top" alt="Guitar" />
+
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
@@ -29,8 +30,7 @@
                     <p class="card-text"> Description: '.$row['course_desc'].'</p>
                     <p class="card-text"> Duration: '.$row['course_duration'].'</p>
                     <form action="checkout.php" method="post">
-                      <p class="card-text d-inline">Price: <small><del>&#8377 '.$row['course_original_price'].'</del></small> <span class="font-weight-bolder">&#8377 '.$row['course_price'].'<span></p>
-                      <input type="hidden" name="id" value='. $row["course_price"] .'> 
+              
                       <button type="submit" class="btn btn-primary text-white font-weight-bolder float-right" name="buy">Buy Now</button>
                     </form>
                   </div>
@@ -51,7 +51,7 @@
              <thead>
                <tr>
                  <th scope="col">Lesson No.</th>
-                 <th scope="col">Lesson Name</th>
+                 <th scope="col" style="border: none">Lesson Name</th>
                </tr>
              </thead>
              <tbody>';
@@ -61,9 +61,12 @@
                $num++;
               echo ' <tr>
                <th scope="row">'.$num.'</th>
-               <td>'. $row["lesson_name"].'</td></tr>';
+               <td style="border: none">'. $row["lesson_name"].'  </td>
+               <td style="border: none"><b>:</b></td></tr>';
+          
               }
              }
+             
              echo '</tbody>
            </table>';
             } ?>         

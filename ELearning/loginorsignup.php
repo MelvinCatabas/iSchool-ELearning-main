@@ -3,6 +3,8 @@
   // Header Include from mainInclude 
   include('./mainInclude/header.php'); 
 ?>
+
+    <link rel="stylesheet" href="./css/modal.css">
     <div class="container-fluid bg-dark"> <!-- Start Course Page Banner -->
       <div class="row">
         <img src="./image/coursebanner.jpg" alt="courses" style="height:300px; width:100%; object-fit:cover; box-shadow:10px;"/>

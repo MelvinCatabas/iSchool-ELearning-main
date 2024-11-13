@@ -27,19 +27,22 @@ include('./mainInclude/header.php');
     ?>
 
   </div>
-</div> <!-- End Video Background -->
+</div>
 
 
-<!-- <div class="container mt-5"> 
-  <h1 class="text-center">Popular Course</h1>
-  <div class="card-deck mt-4">
-    <?php
-    $sql = "SELECT * FROM course LIMIT 3";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        $course_id = $row['course_id'];
-        echo '
+<?php
+if (!isset($_SESSION['is_login'])) {
+} else {
+  echo '<div class="container mt-5"> 
+    <h1 class="text-center">Popular Course</h1>
+    <div class="card-deck mt-4">';
+
+  $sql = "SELECT * FROM course LIMIT 3";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $course_id = $row['course_id'];
+      echo '
             <a href="coursedetails.php?course_id=' . $course_id . '" class="btn" style="text-align: left; padding:0px; margin:0px;">
               <div class="card cour">
                 <img src="' . str_replace('..', '.', $row['course_img']) . '" class="card-img-top" alt="Guitar" />
@@ -51,45 +54,53 @@ include('./mainInclude/header.php');
                   <p class="card-text d-inline">Price: <small><del>&#8377 ' . $row['course_original_price'] . '</del></small> <span class="font-weight-bolder">&#8377 ' . $row['course_price'] . '<span></p> <a class="btn btn-primary text-white font-weight-bolder float-right" href="coursedetails.php?course_id=' . $course_id . '">Open</a>
                 </div>
               </div>
-            </a>  ';
-      }
+            </a>';
     }
-    ?> -->
+  }
 
+  echo '</div>';
+  echo '<div class="card-deck mt-4">';
 
-<!--     
-  </div> 
-  <div class="card-deck mt-4"> 
-    <?php
-    $sql = "SELECT * FROM course LIMIT 3,3";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-        $course_id = $row['course_id'];
-        echo '
-                <a href="coursedetails.php?course_id=' . $course_id . '"  class="btn" style="text-align: left; padding:0px;">
-                  <div class="card">
-                    <img src="' . str_replace('..', '.', $row['course_img']) . '" class="card-img-top" alt="Guitar" />
-                    <div class="card-body">
-                      <h5 class="card-title">' . $row['course_name'] . '</h5>
-                      <p class="card-text">' . $row['course_desc'] . '</p>
-                    </div>
-                    <div class="card-footer">
-                      <p class="card-text d-inline">Price: <small><del>&#8377 ' . $row['course_original_price'] . '</del></small> <span class="font-weight-bolder">&#8377 ' . $row['course_price'] . '<span></p> <a class="btn btn-primary text-white font-weight-bolder float-right" href="#">Enroll</a>
-                    </div>
-                  </div>
-                </a>  ';
-      }
+  $sql = "SELECT * FROM course LIMIT 3,3";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+      $course_id = $row['course_id'];
+      echo '
+                        <a href="coursedetails.php?course_id=' . $course_id . '"  class="btn" style="text-align: left; padding:0px;">
+                          <div class="card">
+                            <img src="' . str_replace('..', '.', $row['course_img']) . '" class="card-img-top" alt="Guitar" />
+                            <div class="card-body">
+                              <h5 class="card-title">' . $row['course_name'] . '</h5>
+                              <p class="card-text">' . $row['course_desc'] . '</p>
+                            </div>
+                            <div class="card-footer">
+                              <p class="card-text d-inline">Price: <small><del>&#8377 ' . $row['course_original_price'] . '</del></small> <span class="font-weight-bolder">&#8377 ' . $row['course_price'] . '<span></p> <a class="btn btn-primary text-white font-weight-bolder float-right" href="#">Enroll</a>
+                            </div>
+                          </div>
+                        </a>  ';
     }
-    ?> -->
+  }
 
-<!-- End Most Popular Course 2nd Card Deck --> 
-<!-- 
-  </div> 
-  <div class="text-center m-2">
-    <a class="btn btn-danger btn-sm btns" href="courses.php">View All Course</a>
-  </div>
-</div> -->
+  echo '</div>';
+
+  echo ' <div class="text-center m-4">
+          <a class="btn btn-danger btn-sm btns" href="courses.php">View All Course</a>
+        </div>
+      </div>';
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- End Most Popular Course -->
 
@@ -129,7 +140,7 @@ include('./mainInclude/header.php');
 
 
 <!-- Start About Section -->
-<div class="container-fluid p-4" style="background-color:#E9ECEF">
+<div class="container-fluid p-4" style="background-color:#E9ECEF; margin-top:24px;">
   <div class="container" style="background-color:#E9ECEF">
     <div class="row text-center">
       <div class="col-sm">
@@ -146,7 +157,7 @@ include('./mainInclude/header.php');
       </div>
       <div class="col-sm">
         <h5>Core Values</h5>
-        <p>        
+        <p>
           <b>N</b>ationalism
           <br>
           <b>E </b>xcellence
@@ -155,7 +166,8 @@ include('./mainInclude/header.php');
           <br>
           <b>S</b>pirituality
           <br>
-          <b>T</b>ransparency</p>
+          <b>T</b>ransparency
+        </p>
       </div>
     </div>
   </div>

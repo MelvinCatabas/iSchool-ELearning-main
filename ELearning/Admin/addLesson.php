@@ -3,6 +3,7 @@ if(!isset($_SESSION)){
   session_start(); 
 }
 define('TITLE', 'Add Lesson');
+define('PAGE', 'add lesson');
 include('./adminInclude/header.php'); 
 include('../dbConnection.php');
 
