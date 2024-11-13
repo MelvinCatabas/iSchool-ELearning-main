@@ -12,137 +12,224 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$db_selected = mysqli_select_db($conn, $db_name);
+// Start a new transaction
+$conn->begin_transaction();
 
-// If the database does not exist, create it
-if (!$db_selected) {
-    $sql = "CREATE DATABASE $db_name";
-    if ($conn->query($sql) === TRUE) {
-        $conn->select_db($db_name);
-    } else {
-        die("Error creating database: " . $conn->error);
+try {
+    // Create Instructor Table
+    $instructor_sql = "
+    CREATE TABLE IF NOT EXISTS `instructor` (
+        `instructor_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `instructor_fname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_lname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_dob` DATE NOT NULL,
+        `instructor_sex` VARCHAR(10) COLLATE utf8_bin NOT NULL,
+        `instructor_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_img` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`instructor_id`)
+    );
+    ";
+    if (!$conn->query($instructor_sql)) {
+        throw new Exception("Error creating instructor table: " . $conn->error);
     }
-}
 
-// SQL statements to create tables and insert data
-$sql = "
-SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = '+00:00';
+    // Create Course Table
+    $course_sql = "
+    CREATE TABLE IF NOT EXISTS `course` (
+        `course_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `instructor_id` INT(11) NOT NULL,
+        `course_name` TEXT COLLATE utf8_bin NOT NULL,
+        `course_desc` TEXT COLLATE utf8_bin NOT NULL,
+        `course_date` DATE NOT NULL,
+        `course_img` TEXT COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`course_id`),
+        FOREIGN KEY (`instructor_id`) REFERENCES `instructor`(`instructor_id`)
+    );
+    ";
+    if (!$conn->query($course_sql)) {
+        throw new Exception("Error creating course table: " . $conn->error);
+    }
 
--- Instructor Table
-CREATE TABLE IF NOT EXISTS `instructor` (
-  `instructor_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `instructor_fname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `instructor_lname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `instructor_dob` DATE NOT NULL,
-  `instructor_sex` VARCHAR(10) COLLATE utf8_bin NOT NULL,
-  `instructor_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `instructor_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`instructor_id`)
-);
+    // Create Admin Table
+    $admin_sql = "
+    CREATE TABLE IF NOT EXISTS `admin` (
+        `admin_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `admin_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `admin_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `admin_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`admin_id`)
+    );
+    ";
+    if (!$conn->query($admin_sql)) {
+        throw new Exception("Error creating admin table: " . $conn->error);
+    }
 
--- Course Table (with instructor_id)
-CREATE TABLE IF NOT EXISTS `course` (
-  `course_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `instructor_id` INT(11) NOT NULL,
-  `course_name` TEXT COLLATE utf8_bin NOT NULL,
-  `course_desc` TEXT COLLATE utf8_bin NOT NULL,
-  `course_date` DATE NOT NULL,  -- Added course date
-  `course_img` TEXT COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`course_id`),
-  FOREIGN KEY (`instructor_id`) REFERENCES `instructor`(`instructor_id`)
-);
+    // Create Student Table
+    $student_sql = "
+    CREATE TABLE IF NOT EXISTS `student` (
+        `stu_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `stu_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_occ` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_img` TEXT COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`stu_id`)
+    );
+    ";
+    if (!$conn->query($student_sql)) {
+        throw new Exception("Error creating student table: " . $conn->error);
+    }
 
--- Admin Table
-CREATE TABLE IF NOT EXISTS `admin` (
-  `admin_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `admin_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `admin_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `admin_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`admin_id`)
-);
+    // Create Enrollees Table
+    $enrollees_sql = "
+    CREATE TABLE IF NOT EXISTS `enrollees` (
+        `enrollee_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `stu_id` INT(11) NOT NULL,
+        `course_id` INT(11) NOT NULL,
+        `enrolment_date` DATE NOT NULL,
+        PRIMARY KEY (`enrollee_id`),
+        FOREIGN KEY (`stu_id`) REFERENCES `student`(`stu_id`),
+        FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
+    );
+    ";
+    if (!$conn->query($enrollees_sql)) {
+        throw new Exception("Error creating enrollees table: " . $conn->error);
+    }
 
--- Student Table
-CREATE TABLE IF NOT EXISTS `student` (
-  `stu_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `stu_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `stu_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `stu_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `stu_occ` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `stu_img` TEXT COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`stu_id`)
-);
+    // Create Lesson Table
+    $lesson_sql = "
+    CREATE TABLE IF NOT EXISTS `lesson` (
+        `lesson_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `lesson_name` TEXT COLLATE utf8_bin NOT NULL,
+        `lesson_desc` TEXT COLLATE utf8_bin NOT NULL,
+        `lesson_link` TEXT COLLATE utf8_bin NOT NULL,
+        `course_id` INT(11) NOT NULL,
+        PRIMARY KEY (`lesson_id`),
+        FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
+    );
+    ";
+    if (!$conn->query($lesson_sql)) {
+        throw new Exception("Error creating lesson table: " . $conn->error);
+    }
 
--- Enrollees Table (student enrolls in course)
-CREATE TABLE IF NOT EXISTS `enrollees` (
-  `enrollee_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `stu_id` INT(11) NOT NULL,
-  `course_id` INT(11) NOT NULL,
-  `enrolment_date` DATE NOT NULL,
-  PRIMARY KEY (`enrollee_id`),
-  FOREIGN KEY (`stu_id`) REFERENCES `student`(`stu_id`),
-  FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
-);
+    // Create Activity Table
+    $activity_sql = "
+    CREATE TABLE IF NOT EXISTS `activity` (
+        `activity_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `course_id` INT(11) NOT NULL,
+        `activity_title` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `activity_link` TEXT COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`activity_id`),
+        FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
+    );
+    ";
+    if (!$conn->query($activity_sql)) {
+        throw new Exception("Error creating activity table: " . $conn->error);
+    }
 
--- Lesson Table (course lessons)
-CREATE TABLE IF NOT EXISTS `lesson` (
-  `lesson_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `lesson_name` TEXT COLLATE utf8_bin NOT NULL,
-  `lesson_desc` TEXT COLLATE utf8_bin NOT NULL,
-  `lesson_link` TEXT COLLATE utf8_bin NOT NULL,
-  `course_id` INT(11) NOT NULL,
-  PRIMARY KEY (`lesson_id`),
-  FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
-);
+    // Insert Admin Record
+    $admin_insert = "
+    INSERT INTO `admin` (`admin_name`, `admin_email`, `admin_pass`) 
+    VALUES ('Admin John', 'admin.john@example.com', 'adminpass123');
+    ";
+    if (!$conn->query($admin_insert)) {
+        throw new Exception("Error inserting admin: " . $conn->error);
+    }
 
--- Activity Table (course activities)
-CREATE TABLE IF NOT EXISTS `activity` (
-  `activity_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `course_id` INT(11) NOT NULL,
-  `activity_title` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-  `activity_link` TEXT COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`activity_id`),
-  FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
-);
+    // Insert Instructor Record
+    $instructor_insert = "
+    INSERT INTO `instructor` (`instructor_fname`, `instructor_lname`, `instructor_dob`, `instructor_sex`, `instructor_email`, `instructor_pass`, `instructor_img`) 
+    VALUES ('Alice', 'Smith', '1985-04-15', 'Female', 'alice.smith@example.com', 'instructor123', './image/stu/Kenneth.jpg');
+    ";
+    if (!$conn->query($instructor_insert)) {
+        throw new Exception("Error inserting instructor: " . $conn->error);
+    }
 
-COMMIT;
+    // Insert Course Record (Instructor with ID 1 must exist now)
+    $course_insert = "
+  
+    INSERT INTO `course` (`instructor_id`, `course_name`, `course_desc`, `course_date`, `course_img`) VALUES
+(1, 'Learn Guitar The Easy Way', 'This course is your Free Pass to playing guitar. It is the most direct and to the point complete online guitar course.', '2024-01-01', '../image/courseimg/Guitar.jpg'),
+(1, 'Complete PHP Bootcamp', 'This course will help you get all the Object Oriented PHP, MYSQLi and end the course by building a CMS system.', '2024-02-01', '../image/courseimg/php.jpg'),
+(1, 'Learn Python A-Z', 'This is the most comprehensive, yet straightforward course for the Python programming language.', '2024-03-01', '../image/courseimg/Python.jpg'),
+(1, 'Hands-on Artificial Intelligence', 'Learn and master how AI works and how it is changing our lives in this course.', '2024-04-01', '../image/courseimg/ai.jpg'),
+(1, 'Learn Vue JS', 'The skills you will learn from this course are applicable to the real world, so you can go ahead and build similar apps.', '2024-05-01', '../image/courseimg/vue.jpg'),
+(1, 'Angular JS', 'Angular is one of the most popular frameworks for building client apps with HTML, CSS, and TypeScript.', '2024-06-01', '../image/courseimg/angular.jpg'),
+(1, 'Python Complete', 'This is a complete Python course.', '2024-07-01', '../image/courseimg/Python.jpg'),
+(1, 'Learn React Native', 'This course covers React Native for Android and iOS app development.', '2024-08-01', '../image/courseimg/Machine.jpg');
 
--- Inserting Admin
-INSERT INTO `admin` (`admin_name`, `admin_email`, `admin_pass`) VALUES 
-('Admin John', 'admin.john@example.com', 'adminpass123');
-
--- Inserting Instructor
-INSERT INTO `instructor` (`instructor_fname`, `instructor_lname`, `instructor_dob`, `instructor_sex`, `instructor_email`, `instructor_pass`) VALUES 
-('Alice', 'Smith', '1985-04-15', 'Female', 'alice.smith@example.com', 'instructor123');
-
--- Inserting Course (with instructor_id)
-INSERT INTO `course` (`instructor_id`, `course_name`, `course_desc`, `course_date`, `course_img`) VALUES
-(1, 'Advanced PHP Programming', 'Learn advanced techniques for PHP programming including OOP, MVC, and more.', '2024-01-01', 'php_course_image.jpg');
-
--- Inserting Student
-INSERT INTO `student` (`stu_name`, `stu_email`, `stu_pass`, `stu_occ`, `stu_img`) VALUES
-('John Doe', 'johndoe@example.com', 'password123', 'Software Developer', 'student_image.jpg');
-
--- Inserting Enrollee (linking Student with Course)
-INSERT INTO `enrollees` (`stu_id`, `course_id`, `enrolment_date`) VALUES
-(1, 1, '2024-01-05');
-
--- Inserting Lesson
-INSERT INTO `lesson` (`lesson_name`, `lesson_desc`, `lesson_link`, `course_id`) VALUES
-('Introduction to PHP', 'Learn the basics of PHP programming language.', 'lesson1_video.mp4', 1);
-
--- Inserting Activity
-INSERT INTO `activity` (`course_id`, `activity_title`, `activity_link`) VALUES
-(1, 'PHP Practice Assignment', 'activity1_link.pdf');
 ";
 
-// Execute the SQL statements
-if ($conn->multi_query($sql)) {
-    // echo "<div id='successMessage'>Database $db_name created successfully.</div>";
-} else {
-    echo "Error creating tables: " . $conn->error;
+    if (!$conn->query($course_insert)) {
+        throw new Exception("Error inserting course: " . $conn->error);
+    }
+
+    // Insert Student Record
+    $student_insert = "
+    INSERT INTO `student` (`stu_name`, `stu_email`, `stu_pass`, `stu_occ`, `stu_img`) VALUES
+('Captain Marvel', 'cap@example.com', '123456', ' Web Designer', '../image/stu/student2.jpg'),
+('Ant Man', 'ant@example.com', '123456', ' Web Developer', '../image/stu/student4.jpg'),
+(' Dr Strange', 'doc@example.com', '123456', ' Web Developer', '../image/stu/student1.jpg'),
+('Scarlet Witch', 'witch@example.com', '123456', 'Web Designer', '../image/stu/student3.jpg'),
+(' Shaktiman', 'shaktiman@ischool.com', '123456', 'Software ENgg', '../image/stu/shaktiman.jpg'),
+(' Mario', 'mario@ischool.com', '1234567', ' Web Dev', '../image/stu/super-mario-2690254_1280.jpg'),
+(' sonam', 'sonam@gmail.com', '123456', ' Web Dev', '../image/stu/student2.jpg');
+    ";
+    if (!$conn->query($student_insert)) {
+        throw new Exception("Error inserting student: " . $conn->error);
+    }
+
+    // Insert Enrollee Record
+    $enrollee_insert = "
+    INSERT INTO `enrollees` (`stu_id`, `course_id`, `enrolment_date`) 
+    VALUES (1, 1, '2024-01-05');
+    ";
+    if (!$conn->query($enrollee_insert)) {
+        throw new Exception("Error inserting enrollee: " . $conn->error);
+    }
+
+    // Insert Lesson Record
+    $lesson_insert = "
+ INSERT INTO `lesson` (`lesson_name`, `lesson_desc`, `lesson_link`, `course_id`) VALUES
+('Introduction to Python', 'Introduction to Python Desc', '../lessonvid/video2.mp4', 40),
+( 'How Python Works', 'How Python Works Descc', '../lessonvid/video3.mp4', 40),
+( 'Why Python is powerful', 'Why Python is powerful Desc', '../lessonvid/video9.mp4', 40),
+( 'Everyone should learn Python', 'Everyone should learn Python Desccc', '../lessonvid/video1.mp4', 40),
+( 'Introduction to PHP', 'Introduction to PHP Desc', '../lessonvid/video4.mp4', 36),
+( 'How PHP works', 'How PHP works Desc', '../lessonvid/video5.mp4', 1),
+( 'is PHP really easy ?', 'is PHP really easy ? desc', '../lessonvid/video6.mp4', 2),
+( 'Introduction to Guitar44', 'Introduction to Guitar desc1', '../lessonvid/video7.mp4', 33),
+( 'Type of Guitar', 'Type of Guitar Desc2', '../lessonvid/video8.mp4', 41),
+( 'Intro Hands-on Artificial Intelligence', 'Intro Hands-on Artificial Intelligence desc', '../lessonvid/video10.mp4', 1),
+( 'How it works', 'How it works descccccc', '../lessonvid/video11.mp4', 41),
+( 'Inro Learn Vue JS', 'Inro Learn Vue JS desc', '../lessonvid/video12.mp4', 41),
+( 'intro Angular JS', 'intro Angular JS desc', '../lessonvid/video13.mp4', 41),
+( 'Intro to Python Complete', 'This is lesson number 1', '../lessonvid/video11.mp4', 41),
+( 'Introduction to React Native', 'This intro video of React native', '../lessonvid/video11.mp4', 41);
+
+    ";
+    if (!$conn->query($lesson_insert)) {
+        throw new Exception("Error inserting lesson: " . $conn->error);
+    }
+
+    // Insert Activity Record
+    $activity_insert = "
+    INSERT INTO `activity` (`course_id`, `activity_title`, `activity_link`) 
+    VALUES (1, 'PHP Practice Assignment', 'activity1_link.pdf');
+    ";
+    if (!$conn->query($activity_insert)) {
+        throw new Exception("Error inserting activity: " . $conn->error);
+    }
+
+    // Commit the transaction
+    $conn->commit();
+
+    echo "<div id='successMessage'>Database and tables created and data inserted successfully.</div>";
+} catch (Exception $e) {
+    // Rollback the transaction if an error occurs
+    $conn->rollback();
+    echo "Transaction failed: " . $e->getMessage();
 }
 
 // Close the connection

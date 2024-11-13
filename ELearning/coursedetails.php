@@ -29,7 +29,6 @@
                   <div class="card-body">
                     <h5 class="card-title">Course Name: '.$row['course_name'].'</h5>
                     <p class="card-text"> Description: '.$row['course_desc'].'</p>
-                    <p class="card-text"> Duration: '.$row['course_duration'].'</p>
                     <form action="checkout.php" method="post">
               
                       <button type="submit" class="btn btn-primary text-white font-weight-bolder float-right mb-3" name="buy">Enroll</button>
