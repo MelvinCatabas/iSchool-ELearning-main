@@ -17,13 +17,9 @@
   color: #fff !important;
 }
 
-.btns{
+.btns {
   color: #ffffff;
   background-color: #f8961f;
-}
-
-.btns:hover{
-  color: #225470;
 }
 
 .custom-nav-item:hover {
@@ -111,11 +107,10 @@ a.social-hover:hover {
   }
 }
 
-.con{
+.con {
   height: 250px;
 }
 
-.cour{
+.cour {
   border-radius: 10px;
 }
-
