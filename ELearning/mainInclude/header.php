@@ -22,7 +22,7 @@
  
     <style>
         .navbar{
-          background-color: transparent;
+          background-color: #1f4966;
         }
     
         .navbar-nav .nav-link {

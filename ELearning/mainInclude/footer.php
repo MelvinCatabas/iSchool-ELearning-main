@@ -70,7 +70,7 @@
 
              <form role="form" id="stuRegForm">
                <div class="form-outline mb-4">
-                 <label class="form-label" for="stuLogEmail" >Name</label>
+                 <label class="form-label" for="stuLogEmail" >Email Address</label>
                  <input type="text" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="ex: Dela Cruz"name="stuLogEmail" id="stuLogEmail">
                </div>
 
