@@ -22,7 +22,7 @@
  
     <style>
         .navbar{
-          background-color: #1f4966;
+          background-color: transparent;
         }
     
         .navbar-nav .nav-link {
@@ -36,7 +36,7 @@
         .navbar-brand:hover{
             color: #ffffff;
         }
-        
+
         .navbar-toggler-icon{
           color: #ffffff;
         }        
@@ -70,24 +70,15 @@
 
     <!-- Start Navigation -->
     <nav class="navbar navbar-expand-md fixed-top">
-        <a href="index.php" class="navbar-brand"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />    NEUST</a>
-        <!-- <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span> -->
+        <a href="index.php" class="navbar-brand">NEUST</a>
+        <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">=</span>
         </button>
         
         <div class="collapse navbar-collapse" id="myMenu">
             <ul class="navbar-nav ml-auto">
-                <?php 
-                    session_start();   
-                    if (isset($_SESSION['is_login'])){
-                        echo '<li class="nav-item"><a href="student/studentProfile.php" class="nav-link">My Profile</a></li>';
-                        echo '<li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>';
-                    } else {
-                        echo '<li class="nav-item"><a href="#login" class="bt nav-link" data-toggle="modal" data-target="#stuLoginModalCenter">Login</a></li>';
-                        echo '<li class="nav-item"><a href="#signup" class="bx nav-link" data-toggle="modal" data-target="#stuRegModalCenter">Signup</a></li>';     
-                    }
-                ?> 
+            
             </ul>
         </div>
     </nav>
