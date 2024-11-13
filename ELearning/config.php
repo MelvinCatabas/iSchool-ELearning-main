@@ -129,7 +129,7 @@ COMMIT;
 
 // Execute the SQL statement
 if ($conn->multi_query($sql)) {
-  echo "<div id='successMessage'>Database $db_name created successfully.</div>";
+  // echo "<div id='successMessage'>Database $db_name created successfully.</div>";
 } else {
     echo "Error creating tables: " . $conn->error;
 }

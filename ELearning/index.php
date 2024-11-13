@@ -1,5 +1,6 @@
 <?php
 include('./config.php');
+include('./dbConnection.php');
 
 // Header Include from mainInclude 
 include('./mainInclude/header.php');
