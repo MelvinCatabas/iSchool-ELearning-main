@@ -1,104 +1,214 @@
-<section class="vh-100" style="background-color: #9A616D;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-8">
-        <div class="card" style="border-radius: 1rem;">
-          <div class="card-body p-4 text-black">
-            
-            <!-- Logo and Header -->
-            <div class="d-flex align-items-center justify-content-center mb-4">
-              <img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="60px" style="margin-right: 1rem;" />
-              <span class="h1 fw-bold mb-0">NEUST</span>
-            </div>
-            
-            <div class="row justify-content-center">
-              <div class="col-md-7">
-                <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">New User? Sign Up</h5>
-                
-                <form role="form" id="stuRegForm">
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="stuname">Name</label>
-                    <input type="text" class="form-control form-control-lg" placeholder="Name" name="stuname" id="stuname">
-                  </div>
-                  
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="stuemail">Email</label>
-                    <input type="email" class="form-control form-control-lg" placeholder="Email" name="stuemail" id="stuemail">
-                    <small class="form-text">We'll never share your email with anyone else.</small>
-                  </div>
-                  
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="stupass">New Password</label>
-                    <input type="password" class="form-control form-control-lg" placeholder="Password" name="stupass" id="stupass">
-                  </div>
-                  
-                  <button type="button" class="btn btn-primary btn-lg btn-block" id="signup" onclick="addStu()">Sign Up</button>
-                </form>
-              </div>
-            </div>
-            
-            <!-- Footer Links -->
-            <div class="text-center mt-4">
-              <a href="#!" class="small text-muted">Terms of use.</a>
-              <a href="#!" class="small text-muted mx-3">Privacy policy</a>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<?php
+$db_host = "localhost";
+$db_user = "root";
+$db_password = "";
+$db_name = "lms_db";
 
-<!-- sign up -->
-<section class="vh-100" style="background-color: #9A616D;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-8">
-        <div class="card" style="border-radius: 1rem;">
-          <div class="card-body p-4 text-black">
-            
-            <!-- Logo and Header -->
-            <div class="d-flex align-items-center justify-content-center mb-4">
-              <img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="60px" style="margin-right: 1rem;" />
-              <span class="h1 fw-bold mb-0">NEUST</span>
-            </div>
-            
-            <div class="row justify-content-center">
-              Login Form Section
-              <div class="col-md-5">
-                <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px;">Sign into your account</h5>
-                <form role="form" id="stuLoginForm">
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="stuLogEmail">Email</label>
-                    <input type="email" id="stuLogEmail" class="form-control form-control-lg" placeholder="Email" />
-                  </div>
-                  
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="stuLogPass">Password</label>
-                    <input type="password" id="stuLogPass" class="form-control form-control-lg" placeholder="Password" />
-                  </div>
-                  
-                  <div class="d-flex justify-content-between align-items-center mb-4">
-                    <a class="small text-muted" href="#!">Forgot password?</a>
-                  </div>
-                  
-                  <div class="pt-1 mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="button" id="stuLoginBtn" onclick="checkStuLogin()">Login</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            
-            <!-- Footer Links -->
-            <div class="text-center mt-4">
-              <a href="#!" class="small text-muted">Terms of use.</a>
-              <a href="#!" class="small text-muted mx-3">Privacy policy</a>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+// Create Connection
+$conn = new mysqli($db_host, $db_user, $db_password, $db_name);
+
+// Check Connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Start a new transaction
+$conn->begin_transaction();
+
+try {
+    // Create Instructor Table
+    $instructor_sql = "
+    CREATE TABLE IF NOT EXISTS `instructor` (
+        `instructor_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `instructor_fname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_lname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_dob` DATE NOT NULL,
+        `instructor_sex` VARCHAR(10) COLLATE utf8_bin NOT NULL,
+        `instructor_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `instructor_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`instructor_id`)
+    );
+    ";
+    if (!$conn->query($instructor_sql)) {
+        throw new Exception("Error creating instructor table: " . $conn->error);
+    }
+
+    // Create Course Table
+    $course_sql = "
+    CREATE TABLE IF NOT EXISTS `course` (
+        `course_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `instructor_id` INT(11) NOT NULL,
+        `course_name` TEXT COLLATE utf8_bin NOT NULL,
+        `course_desc` TEXT COLLATE utf8_bin NOT NULL,
+        `course_date` DATE NOT NULL,
+        `course_img` TEXT COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`course_id`),
+        FOREIGN KEY (`instructor_id`) REFERENCES `instructor`(`instructor_id`)
+    );
+    ";
+    if (!$conn->query($course_sql)) {
+        throw new Exception("Error creating course table: " . $conn->error);
+    }
+
+    // Create Admin Table
+    $admin_sql = "
+    CREATE TABLE IF NOT EXISTS `admin` (
+        `admin_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `admin_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `admin_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `admin_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`admin_id`)
+    );
+    ";
+    if (!$conn->query($admin_sql)) {
+        throw new Exception("Error creating admin table: " . $conn->error);
+    }
+
+    // Create Student Table
+    $student_sql = "
+    CREATE TABLE IF NOT EXISTS `student` (
+        `stu_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `stu_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_occ` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_img` TEXT COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`stu_id`)
+    );
+    ";
+    if (!$conn->query($student_sql)) {
+        throw new Exception("Error creating student table: " . $conn->error);
+    }
+
+    // Create Enrollees Table
+    $enrollees_sql = "
+    CREATE TABLE IF NOT EXISTS `enrollees` (
+        `enrollee_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `stu_id` INT(11) NOT NULL,
+        `course_id` INT(11) NOT NULL,
+        `enrolment_date` DATE NOT NULL,
+        PRIMARY KEY (`enrollee_id`),
+        FOREIGN KEY (`stu_id`) REFERENCES `student`(`stu_id`),
+        FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
+    );
+    ";
+    if (!$conn->query($enrollees_sql)) {
+        throw new Exception("Error creating enrollees table: " . $conn->error);
+    }
+
+    // Create Lesson Table
+    $lesson_sql = "
+    CREATE TABLE IF NOT EXISTS `lesson` (
+        `lesson_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `lesson_name` TEXT COLLATE utf8_bin NOT NULL,
+        `lesson_desc` TEXT COLLATE utf8_bin NOT NULL,
+        `lesson_link` TEXT COLLATE utf8_bin NOT NULL,
+        `course_id` INT(11) NOT NULL,
+        PRIMARY KEY (`lesson_id`),
+        FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
+    );
+    ";
+    if (!$conn->query($lesson_sql)) {
+        throw new Exception("Error creating lesson table: " . $conn->error);
+    }
+
+    // Create Activity Table
+    $activity_sql = "
+    CREATE TABLE IF NOT EXISTS `activity` (
+        `activity_id` INT(11) NOT NULL AUTO_INCREMENT,
+        `course_id` INT(11) NOT NULL,
+        `activity_title` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `activity_link` TEXT COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`activity_id`),
+        FOREIGN KEY (`course_id`) REFERENCES `course`(`course_id`)
+    );
+    ";
+    if (!$conn->query($activity_sql)) {
+        throw new Exception("Error creating activity table: " . $conn->error);
+    }
+
+    // Insert Admin Record
+    $admin_insert = "
+    INSERT INTO `admin` (`admin_name`, `admin_email`, `admin_pass`) 
+    VALUES ('Admin John', 'admin.john@example.com', 'adminpass123');
+    ";
+    if (!$conn->query($admin_insert)) {
+        throw new Exception("Error inserting admin: " . $conn->error);
+    }
+
+    // Insert Instructor Record
+    $instructor_insert = "
+    INSERT INTO `instructor` (`instructor_fname`, `instructor_lname`, `instructor_dob`, `instructor_sex`, `instructor_email`, `instructor_pass`) 
+    VALUES ('Alice', 'Smith', '1985-04-15', 'Female', 'alice.smith@example.com', 'instructor123');
+    ";
+    if (!$conn->query($instructor_insert)) {
+        throw new Exception("Error inserting instructor: " . $conn->error);
+    }
+
+    // Insert Course Record (Instructor with ID 1 must exist now)
+    $course_insert = "
+    INSERT INTO `course` (`instructor_id`, `course_name`, `course_desc`, `course_date`, `course_img`) 
+    VALUES (1, 'Advanced PHP Programming', 'Learn advanced techniques for PHP programming including OOP, MVC, and more.', '2024-01-01', 'php_course_image.jpg');
+    ";
+    if (!$conn->query($course_insert)) {
+        throw new Exception("Error inserting course: " . $conn->error);
+    }
+
+    // Insert Student Record
+    $student_insert = "
+    INSERT INTO `student` (`stu_name`, `stu_email`, `stu_pass`, `stu_occ`, `stu_img`) 
+    VALUES ('John Doe', 'johndoe@example.com', 'password123', 'Software Developer', 'student_image.jpg');
+    ";
+    if (!$conn->query($student_insert)) {
+        throw new Exception("Error inserting student: " . $conn->error);
+    }
+
+    // Insert Enrollee Record
+    $enrollee_insert = "
+    INSERT INTO `enrollees` (`stu_id`, `course_id`, `enrolment_date`) 
+    VALUES (1, 1, '2024-01-05');
+    ";
+    if (!$conn->query($enrollee_insert)) {
+        throw new Exception("Error inserting enrollee: " . $conn->error);
+    }
+
+    // Insert Lesson Record
+    $lesson_insert = "
+    INSERT INTO `lesson` (`lesson_name`, `lesson_desc`, `lesson_link`, `course_id`) 
+    VALUES ('Introduction to PHP', 'Learn the basics of PHP programming language.', 'lesson1_video.mp4', 1);
+    ";
+    if (!$conn->query($lesson_insert)) {
+        throw new Exception("Error inserting lesson: " . $conn->error);
+    }
+
+    // Insert Activity Record
+    $activity_insert = "
+    INSERT INTO `activity` (`course_id`, `activity_title`, `activity_link`) 
+    VALUES (1, 'PHP Practice Assignment', 'activity1_link.pdf');
+    ";
+    if (!$conn->query($activity_insert)) {
+        throw new Exception("Error inserting activity: " . $conn->error);
+    }
+
+    // Commit the transaction
+    $conn->commit();
+
+    echo "<div id='successMessage'>Database and tables created and data inserted successfully.</div>";
+} catch (Exception $e) {
+    // Rollback the transaction if an error occurs
+    $conn->rollback();
+    echo "Transaction failed: " . $e->getMessage();
+}
+
+// Close the connection
+$conn->close();
+?>
+
+<script>
+    setTimeout(function() {
+        var messageDiv = document.getElementById('successMessage');
+        if (messageDiv) {
+            messageDiv.style.display = 'none';
+        }
+    }, 2000);
+</script>
