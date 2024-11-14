@@ -8,7 +8,7 @@ include('./stuInclude/header.php');
 include_once('../dbConnection.php');
 
  if(isset($_SESSION['is_login'])){
-  $stuEmail = $_SESSION['stuLogEmail'];
+  $instEmail = $_SESSION['instLogEmail'];
  } else {
   echo "<script> location.href='../index.php'; </script>";
  }

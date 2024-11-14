@@ -4,6 +4,7 @@ if(!isset($_SESSION)){
 }
 define('TITLE', 'my Course');
 define('PAGE', 'myCourse');
+
 include('./stuInclude/header.php'); 
 include_once('../dbConnection.php');
 
@@ -14,7 +15,7 @@ include_once('../dbConnection.php');
  }
 ?>
 
- <div class="container mt-5 ml-4">
+ <div class="container col-sm-6 mt-5">
   <div class="row">
    <div class="jumbotron">
     <h4 class="text-center">All Course</h4>

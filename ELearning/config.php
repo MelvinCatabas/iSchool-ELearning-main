@@ -168,13 +168,7 @@ try {
     // Insert Student Record
     $student_insert = "
     INSERT INTO `student` (`stu_name`, `stu_email`, `stu_pass`, `stu_occ`, `stu_img`) VALUES
-('Captain Marvel', 'cap@example.com', '123456', ' Web Designer', '../image/stu/student2.jpg'),
-('Ant Man', 'ant@example.com', '123456', ' Web Developer', '../image/stu/student4.jpg'),
-(' Dr Strange', 'doc@example.com', '123456', ' Web Developer', '../image/stu/student1.jpg'),
-('Scarlet Witch', 'witch@example.com', '123456', 'Web Designer', '../image/stu/student3.jpg'),
-(' Shaktiman', 'shaktiman@ischool.com', '123456', 'Software ENgg', '../image/stu/shaktiman.jpg'),
-(' Mario', 'mario@ischool.com', '1234567', ' Web Dev', '../image/stu/super-mario-2690254_1280.jpg'),
-(' sonam', 'sonam@gmail.com', '123456', ' Web Dev', '../image/stu/student2.jpg');
+('John Doe', 'john@gmail.com', '1234', 'Software Developer', 'student_image.jpg'); 
     ";
     if (!$conn->query($student_insert)) {
         throw new Exception("Error inserting student: " . $conn->error);
@@ -192,21 +186,9 @@ try {
     // Insert Lesson Record
     $lesson_insert = "
  INSERT INTO `lesson` (`lesson_name`, `lesson_desc`, `lesson_link`, `course_id`) VALUES
-('Introduction to Python', 'Introduction to Python Desc', '../lessonvid/video2.mp4', 40),
-( 'How Python Works', 'How Python Works Descc', '../lessonvid/video3.mp4', 40),
-( 'Why Python is powerful', 'Why Python is powerful Desc', '../lessonvid/video9.mp4', 40),
-( 'Everyone should learn Python', 'Everyone should learn Python Desccc', '../lessonvid/video1.mp4', 40),
-( 'Introduction to PHP', 'Introduction to PHP Desc', '../lessonvid/video4.mp4', 36),
-( 'How PHP works', 'How PHP works Desc', '../lessonvid/video5.mp4', 1),
-( 'is PHP really easy ?', 'is PHP really easy ? desc', '../lessonvid/video6.mp4', 2),
-( 'Introduction to Guitar44', 'Introduction to Guitar desc1', '../lessonvid/video7.mp4', 33),
-( 'Type of Guitar', 'Type of Guitar Desc2', '../lessonvid/video8.mp4', 41),
-( 'Intro Hands-on Artificial Intelligence', 'Intro Hands-on Artificial Intelligence desc', '../lessonvid/video10.mp4', 1),
-( 'How it works', 'How it works descccccc', '../lessonvid/video11.mp4', 41),
-( 'Inro Learn Vue JS', 'Inro Learn Vue JS desc', '../lessonvid/video12.mp4', 41),
-( 'intro Angular JS', 'intro Angular JS desc', '../lessonvid/video13.mp4', 41),
-( 'Intro to Python Complete', 'This is lesson number 1', '../lessonvid/video11.mp4', 41),
-( 'Introduction to React Native', 'This intro video of React native', '../lessonvid/video11.mp4', 41);
+('Introduction to Python', 'Introduction to Python Desc', '../lessonvid/video2.mp4', 1),
+( 'How Python Works', 'How Python Works Descc', '../lessonvid/video3.mp4', 1),
+( 'Why Python is powerful', 'Why Python is powerful Desc', '../lessonvid/video9.mp4', 2);
 
     ";
     if (!$conn->query($lesson_insert)) {

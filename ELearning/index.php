@@ -1,6 +1,6 @@
 <?php
 
-include('./config.php');
+// include('./config.php');
 include('./dbConnection.php');
 
 
@@ -86,6 +86,51 @@ if (isset($_SESSION['is_login'])) {
           </div>';
 }
 ?>
+
+<?php
+
+if (!isset($_SESSION['is_login'])) {
+
+
+
+    echo '<div class="container-fluid p-4" style="background-color:#E9ECEF; margin-top:24px;">
+    <div class="container" style="background-color:#E9ECEF">
+      <div class="row text-center">
+        <div class="col-sm">
+          <h5>Vison</h5>
+          <p>A globally renowned University as champion of
+            sustainable societal development through
+            ethical and empowered human resources.</p>
+        </div>
+        <div class="col-sm">
+          <h5>Mission</h5>
+          <p>Advance knowledge generation and innovation,
+            produce globally outstanding graduates, and
+            transform communities towards inclusive progress</p>
+        </div>
+        <div class="col-sm">
+          <h5>Core Values</h5>
+          <p>
+            <b>N</b>ationalism
+            <br>
+            <b>E </b>xcellence
+            <br>
+            <b>U</b>nity
+            <br>
+            <b>S</b>pirituality
+            <br>
+            <b>T</b>ransparency
+          </p>
+        </div>
+      </div>
+    </div>
+  </div> ';
+}
+
+
+?>
+
+
 
 <?php
 include('./mainInclude/footer.php');

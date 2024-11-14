@@ -162,6 +162,46 @@ function clearStuLoginField() {
   $("#stuLoginForm").trigger("reset");
 }
 
+// Ajax Call for Instructor Login Verification
+function checkInstLogin() {
+  var instLogEmail = $("#instLogEmail").val();
+  var instLogPass = $("#instLogPass").val();
+  $.ajax({
+    url: "Instructor/addinst.php",
+    type: "post",
+    data: {
+      checkLogemail: "checklogemail",
+      instLogEmail: instLogEmail,
+      instLogPass: instLogPass
+    },
+    success: function(data) {
+      console.log(data);
+      if (data == 0) {
+        $("#statusLogMsg").html(
+          '<small class="alert alert-danger"> Invalid Email ID or Password ! </small>'
+        );
+      } else if (data == 1) {
+        $("#statusLogMsg").html(
+          '<div class="spinner-border text-success" role="status"></div>'
+        );
+        // Empty Login Fields
+        clearInstLoginField();
+        setTimeout(() => {
+          window.location.href = "index.php";
+        }, 1000);
+      }
+    },
+    error: function(e){
+      console.log(e)
+    }
+  });
+}
+
+// Empty Login Fields
+function clearInstLoginField() {
+  $("#instLoginForm").trigger("reset");
+}
+
 // Empty Login Fields and Status Msg
 function clearStuLoginWithStatus() {
   $("#statusLogMsg").html(" ");

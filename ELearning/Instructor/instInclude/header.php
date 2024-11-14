@@ -4,16 +4,16 @@ include_once('../dbConnection.php');
    session_start(); 
  } 
  if(isset($_SESSION['is_login'])){
-  $stuLogEmail = $_SESSION['stuLogEmail'];
+  $instLogEmail = $_SESSION['instLogEmail'];
  } 
  // else {
  //  echo "<script> location.href='../index.php'; </script>";
  // }
  if(isset($stuLogEmail)){
-  $sql = "SELECT stu_img FROM student WHERE stu_email = '$stuLogEmail'";
+  $sql = "SELECT instructor_img FROM instructor WHERE instructor_email = '$instLogEmail'";
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
-  $stu_img = $row['stu_img'];
+  $stu_img = $row['instructor_img'];
  }
 ?>
 
@@ -54,28 +54,23 @@ include_once('../dbConnection.php');
     <div class="sidebar-sticky">
      <ul class="nav flex-column">
       <li class="nav-item mb-3">
-      <img src="<?php echo $stu_img ?>" alt="studentimage" class="img">
+      <img src="<?php echo $inst_img ?>" alt="studentimage" class="img">
       </li>
       <li class="nav-item">
-       <a class="nav-link <?php if(PAGE == 'profile') {echo 'active';} ?>" href="studentProfile.php">
+       <a class="nav-link <?php if(PAGE == 'profile') {echo 'active';} ?>" href="instProfile.php">
         <i class="fas fa-user"></i>
         Profile <span class="sr-only">(current)</span>
        </a>
       </li>
       <li class="nav-item">
-       <a class="nav-link <?php if(PAGE == 'mycourse') {echo 'active';} ?>" href="myCourse.php">
+       <a class="nav-link <?php if(PAGE == 'mycourse') {echo 'active';} ?>" href="instmyCourse.php">
         <i class="fab fa-accessible-icon"></i>
         My Courses
        </a>
       </li>
+  
       <li class="nav-item">
-       <a class="nav-link <?php if(PAGE == 'feedback') {echo 'active';} ?>" href="stufeedback.php">
-        <i class="fab fa-accessible-icon"></i>
-        Feedback
-       </a>
-      </li>
-      <li class="nav-item">
-       <a class="nav-link <?php if(PAGE == 'studentChangePass') {echo 'active';} ?>" href="studentChangePass.php">
+       <a class="nav-link <?php if(PAGE == 'instChangePass') {echo 'active';} ?>" href="instChangePass.php">
         <i class="fas fa-key"></i>
         Change Password
        </a>

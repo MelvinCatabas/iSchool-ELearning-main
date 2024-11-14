@@ -13,7 +13,7 @@ if(isset($_POST['stuemail']) && isset($_POST['checkemail'])){
   $sql = "SELECT stu_email FROM student WHERE stu_email='".$stuemail."'";
   $result = $conn->query($sql);
   $row = $result->num_rows;
-  echo json_encode($row);
+  
   }
  
   // Inserting or Adding New Student

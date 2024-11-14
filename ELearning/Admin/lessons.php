@@ -35,23 +35,38 @@ include('../dbConnection.php');
         $_SESSION['course_name'] = $row['course_name'];
         
         ?>
-        <h3 class="mt-5 bg-dark text-white p-2">Course ID : <?php if(isset($row['course_id'])) {echo $row['course_id']; } ?> Course Name: <?php if(isset($row['course_name'])) {echo $row['course_name']; } ?></h3>
+        <h3 class="mt-5  text-dark p-2" style="font-size:16px;">Course ID : <?php if(isset($row['course_id'])) {echo $row['course_id']; } ?> Course Name: <?php if(isset($row['course_name'])) {echo $row['course_name']; } ?></h3>
+
+        <div class="row my-4">
+    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+      <div class="card">
+        <div class="card-header pb-0">
+          <div class="row">
+
+            <div class="col-lg-6 col-5 my-auto text-end">
+
+            </div>
+          </div>
+        </div>
         <?php
           $sql = "SELECT * FROM lesson WHERE course_id = {$_REQUEST['checkid']}";
           $result = $conn->query($sql);
-          echo '<table class="table">
-            <thead>
-              <tr>
-              <th scope="col">Lesson ID</th>
-              <th scope="col">Lesson Name</th>
-              <th scope="col">Lesson Link</th>
-              <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>';
+
+            echo '<div class="card-body px-0 pb-2">
+            <div class="table-responsive">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lessom ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Lesson Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Lesson Link</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                  </tr>
+                </thead>
+                <tbody>';
               while($row = $result->fetch_assoc()){
                 echo '<tr>';
-                echo '<th scope="row">'.$row["lesson_id"].'</th>';
+                echo '<th scope="row" style="text-align:center;">'.$row["lesson_id"].'</th>';
                 echo '<td>'. $row["lesson_name"].'</td>';
                 echo '<td>'.$row["lesson_link"].'</td>';
                 echo '<td><form action="editlesson.php" method="POST" class="d-inline"> <input type="hidden" name="id" value='. $row["lesson_id"] .'><button type="submit" class="btn btn-info mr-3" name="view" value="View"><i class="fas fa-pen"></i></button></form>  
@@ -76,6 +91,11 @@ include('../dbConnection.php');
      } 
    } 
   }?>
+
+   <!-- div Row close from header -->
+ <?php if(isset($_SESSION['course_id'])){
+   echo '<div class="m-3"><a class="btn btn-danger box" href="./addLesson.php"><i class="fas fa-plus fa-2x"></i></a></div>';
+   } ?>
   
 </div>
 <!-- Only Number for input fields -->
@@ -87,10 +107,9 @@ include('../dbConnection.php');
     }
   }
 </script>
- </div>  <!-- div Row close from header -->
- <?php if(isset($_SESSION['course_id'])){
-   echo '<div><a class="btn btn-danger box" href="./addLesson.php"><i class="fas fa-plus fa-2x"></i></a></div>';
-   } ?>
+ </div>  
+ 
+
  
 </div>  <!-- div Conatiner-fluid close from header -->
 <?php

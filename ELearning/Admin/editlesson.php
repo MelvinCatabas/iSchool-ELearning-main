@@ -3,6 +3,7 @@ if(!isset($_SESSION)){
   session_start(); 
 }
 define('TITLE', 'Edit Lesson');
+define('PAGE', 'edit lesson');
 include('./adminInclude/header.php'); 
 include('../dbConnection.php');
 
@@ -23,10 +24,10 @@ include('../dbConnection.php');
     $lname = $_REQUEST['lesson_name'];
     $ldesc = $_REQUEST['lesson_desc'];
     $cid = $_REQUEST['course_id'];
-    $cname = $_REQUEST['course_name'];
+    // $cname = $_REQUEST['course_name'];
     $llink = '../lessonvid/'. $_FILES['lesson_link']['name'];
     
-   $sql = "UPDATE lesson SET lesson_id = '$lid', lesson_name = '$lname', lesson_desc = '$ldesc', course_id='$cid', course_name='$cname', lesson_link='$llink' WHERE lesson_id = '$lid'";
+   $sql = "UPDATE lesson SET lesson_id = '$lid', lesson_name = '$lname', lesson_desc = '$ldesc', course_id='$cid', lesson_link='$llink' WHERE lesson_id = '$lid'";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Updated Successfully </div>';
@@ -64,10 +65,10 @@ include('../dbConnection.php');
       <label for="course_id">Course ID</label>
       <input type="text" class="form-control" id="course_id" name="course_id" value="<?php if(isset($row['course_id'])) {echo $row['course_id']; }?>" readonly>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="course_name">Course Name</label>
       <input type="text" class="form-control" id="course_name" name="course_name" onkeypress="isInputNumber(event)" value="<?php if(isset($row['course_name'])) {echo $row['course_name']; }?>" readonly>
-    </div>
+    </div> -->
     <div class="form-group">
       <label for="lesson_link">Lesson Link</label>
       <div class="embed-responsive embed-responsive-16by9">
