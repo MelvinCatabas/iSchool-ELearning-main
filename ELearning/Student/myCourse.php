@@ -3,7 +3,7 @@ if(!isset($_SESSION)){
   session_start(); 
 }
 define('TITLE', 'my Course');
-define('PAGE', 'myCourse');
+define('PAGE', 'mycourse');
 
 include('./stuInclude/header.php'); 
 include_once('../dbConnection.php');
@@ -36,18 +36,18 @@ include_once('../dbConnection.php');
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
      while($row = $result->fetch_assoc()){ ?>
-      <div class="bg-light mb-3">
-        <h5 class="card-header"><?php echo $row['course_name']; ?></h5>
+      <div class="mb-3" style="border-radius: 10px;  padding-top:12px; border: 2px solid #71717a;">
+        <h5 class="card-header" style="padding-left:12px;"><?php echo $row['course_name']; ?></h5>
           <div class="row">
           
               <div class="col-sm-3">
                 <img src="<?php echo $row['course_img']; ?>" class="card-img-top
-                mt-4" alt="pic">
+                mt-4" alt="pic" style="padding-left:12px; border-radius: 6px;">
               </div>
               <div class="col-sm-6 mb-3">
                 <div class="card-body">
-                  <p class="card-title"><?php echo $row['course_desc']; ?></p>
-                  <a href="watchcourse.php?course_id=<?php echo $row['course_id'] ?>" class="btn btn-primary mt-5 float-right">Watch Course</a>
+                  <p class="card-title" style="padding-top:14px;"><?php echo $row['course_desc']; ?></p>
+                  <a href="watchcourse.php?course_id=<?php echo $row['course_id'] ?>" class="btn btn-primary mt-5 float-right">View Course</a>
                 </div>
               </div>
           
