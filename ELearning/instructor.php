@@ -18,7 +18,7 @@ if (!isset($_SESSION['is_login'])) {
                 </video>
                 <div class="vid-overlay"></div>
               </div>
-              <div class="vid-content">
+              <div class="vid-content pl-3">
                 <h1 class="my-content">Welcome to <b>NEUST</b></h1>
                 <small class="my-content" style="font-size:16px;">Learn and Implement</small><br />';
     echo '<a class="btn btns mt-3" href="#" data-toggle="modal" data-target="#instLoginModalCenter">Get Started</a>';
