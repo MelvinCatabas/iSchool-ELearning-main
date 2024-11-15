@@ -126,8 +126,6 @@ if (!isset($_SESSION['is_login'])) {
     </div>
   </div> ';
 }
-
-
 ?>
 
 
