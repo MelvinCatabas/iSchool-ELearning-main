@@ -29,7 +29,7 @@
             /* box-shadow: 0 8px 7px 0 rgb(255,255,255); */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(6.5px);
-            border-radius: 10px;
+            /* border-radius: 10px; */
             border: 1px solid rgba(255, 255, 255, 0.18);
             height: 90px;
 
@@ -120,8 +120,8 @@
                         <div class="collapse navbar-collapse" id="myMenu">
                             <ul class="navbar-nav ml-auto">';
 
-            echo '<li class="nav-item"><a href="#login" class="bt nav-link" data-toggle="modal" data-target="#stuLoginModalCenter">Login</a></li>';
-            echo '<li class="nav-item"><a href="#signup" class="bx nav-link" data-toggle="modal" data-target="#stuRegModalCenter">Signup</a></li>';
+            echo '<li class="nav-item" style="position:relative; bottom:60px;"><a href="#login" class="bt nav-link" data-toggle="modal" data-target="#stuLoginModalCenter">Login</a></li>';
+            echo '<li class="nav-item pr-2" style="position:relative; bottom:60px;"><a href="#signup" class="bx nav-link" data-toggle="modal" data-target="#stuRegModalCenter">Signup</a></li>';
         }
         ?>
         </ul>
