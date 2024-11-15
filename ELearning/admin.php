@@ -21,7 +21,7 @@ if (!isset($_SESSION['is_login'])) {
               <div class="vid-content pl-3">
                 <h1 class="my-content">Welcome to <b>NEUST</b></h1>
                 <small class="my-content" style="font-size:16px;">Learn and Implement</small><br />';
-    echo '<a class="btn btns mt-3" href="#" data-toggle="modal" data-target="#adminLoginModalCenter">Get Started</a>';
+    echo '<a class="btn btns mt-3" href="#" data-toggle="modal" data-target="#adminLoginModalCenter">Admin Login</a>';
     echo '</div>
           </div>';
 }
