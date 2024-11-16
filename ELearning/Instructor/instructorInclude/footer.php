@@ -7,8 +7,8 @@
     <!-- Font Awesome JS -->
     <script type="text/javascript" src="../js/all.min.js"></script>
 
-    <!-- Ajax Call JavaScript -->
-    <!-- <script type="text/javascript" src="..js/ajaxrequest.js"></script> -->
+    <!-- Admin Ajax Call JavaScript -->
+    <script type="text/javascript" src="..js/adminajaxrequest.js"></script>
 
     <!-- Custom JavaScript -->
     <script type="text/javascript" src="../js/custom.js"></script>

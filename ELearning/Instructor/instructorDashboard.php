@@ -4,11 +4,11 @@ if(!isset($_SESSION)){
 }
 define('TITLE', 'Dashboard');
 define('PAGE', 'dashboard');
-include('./adminInclude/header.php'); 
+include('./instructorInclude/header.php'); 
 include('../dbConnection.php');
 
- if(isset($_SESSION['is_admin_login'])){
-  $adminEmail = $_SESSION['adminLogEmail'];
+ if(isset($_SESSION['is_instructor_login'])){
+  $instructorEmail = $_SESSION['instructorLogEmail'];
  } else {
   echo "<script> location.href='../index.php'; </script>";
  }

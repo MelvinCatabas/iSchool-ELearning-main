@@ -89,7 +89,7 @@
  <!-- End Student Login Modal -->
 
  <!-- Start Instructor Login Modal -->
- <div class="modal fade" id="instLoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="instLoginModalCenterTitle" aria-hidden="true">
+ <div class="modal fade" id="instructorLoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="instructorLoginModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
        <div class="modal-header" style="border:none;">
@@ -112,21 +112,21 @@
              <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px; font-size:24px;">Instructor</h5>
 
 
-             <form role="form" id="stuRegForm">
+             <form role="form" id="instructorLoginForm">
                <div class="form-outline mb-4">
-                 <label class="form-label" for="stuLogEmail">Email Provide</label>
-                 <input type="text" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="Instructor" name="instLogEmail" id="instLogEmail">
+                 <label class="form-label" for="instructorLogEmail">Email Provide</label>
+                 <input type="text" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="Instructor" name="instructorLogEmail" id="instructorLogEmail">
                </div>
 
                <div class="form-outline mb-4">
                  <label class="form-label" for="stuLogPass">Password</label>
-                 <input type="password" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="Password" name="instLogPass" id="instLogPass">
+                 <input type="password" class="form-control form-control-lg" style="height:40px; font-size:16px;" placeholder="Password" name="instructorLogPass" id="instructorLogPass">
 
                </div>
 
-               <button type="button" class="btn btn-primary btn-lg btn-block" style="height:40px; font-size:16px;" id="instLoginBtn" onclick="checkInstLogin()">Login</button>
+               <button type="button" class="btn btn-primary btn-lg btn-block" style="height:40px; font-size:16px;" id="instructorLoginBtn" onclick="checkInstructorLogin()">Login</button>
 
-               <small id="statusLogMsg" class="row justify-content-center mt-3"></small>
+               <small id="statusInstructorLogMsg" class="row justify-content-center mt-3"></small>
              </form>
            </div>
          </div>
@@ -143,42 +143,6 @@
    </div>
  </div>
 
-
-
-
-
- <!-- Start Admin Login Modal -->
-
- <!-- <div class="modal fade" id="adminLoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="adminLoginModalCenterTitle" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="adminLoginModalCenterTitle">Admin Login</h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="clearAdminLoginWithStatus()">
-           <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-       <div class="modal-body">
-         <form role="form" id="adminLoginForm">
-           <div class="form-group">
-             <i class="fas fa-envelope"></i><label for="adminLogEmail" class="pl-2 font-weight-bold">Email</label><input type="email"
-               class="form-control" placeholder="Email" name="adminLogEmail" id="adminLogEmail">
-           </div>
-           <div class="form-group">
-             <i class="fas fa-key"></i><label for="adminLogPass" class="pl-2 font-weight-bold">Password</label><input type="password" class="form-control" placeholder="Password" name="adminLogPass" id="adminLogPass">
-           </div>
-         </form>
-       </div>
-       <div class="modal-footer">
-         <small id="statusAdminLogMsg"></small>
-         <button type="button" class="btn btn-primary" id="adminLoginBtn" onclick="checkAdminLogin()">Login</button>
-         <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="clearAdminLoginWithStatus()">Cancel</button>
-       </div>
-     </div>
-   </div>
- </div> -->
- 
- <!-- End Admin Login Modal -->
 
 
 <!-- Start Admin Login Modal -->
@@ -242,6 +206,7 @@
  <script type="text/javascript" src="js/jquery.min.js"></script>
  <script type="text/javascript" src="js/popper.min.js"></script>
  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+ 
 
  <!-- Font Awesome JS -->
  <script type="text/javascript" src="js/all.min.js"></script>
@@ -255,6 +220,10 @@
 
  <!-- Admin Ajax Call JavaScript -->
  <script type="text/javascript" src="js/adminajaxrequest.js"></script>
+ 
+
+  <!-- Instructor Ajax Call JavaScript -->
+  <!-- <script type="text/javascript" src="js/instructorajaxrequest.js"></script> -->
 
  <!-- Custom JavaScript -->
  <script type="text/javascript" src="js/custom.js"></script>

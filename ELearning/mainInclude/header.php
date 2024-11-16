@@ -105,7 +105,7 @@
         <?php
         session_start();
         if (isset($_SESSION['is_login'])) {
-            echo '<a href="index.php" class="navbar-brand pl-2"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />    <span style="color:#1d3698;">NEUST</span></a>
+            echo '<a href="index.php" class="navbar-brand pl-2 mt-2"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />    <span style="color:#1d3698;">NEUST</span></a>
                         <!-- <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span> -->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon" style="color:#1d3698;">=</span>
@@ -114,11 +114,11 @@
                         <div class="collapse navbar-collapse" id="myMenu">
                             <ul class="navbar-nav ml-auto">';
 
-            echo '<li class="nav-item" style="position:relative; bottom:60px;"><a href="student/studentProfile.php" class="nav-link l">My Profile</a></li>';
-            echo '<li class="nav-item pr-2" style="position:relative; bottom:60px;"><a href="logout.php" class="nav-link l">Logout</a></li>';
+            echo '<li class="nav-item pr-3" style="position:relative; bottom:60px;"><a href="student/studentProfile.php" class="nav-link l">My Profile</a></li>';
+            echo '<li class="nav-item pr-3" style="position:relative; bottom:60px;"><a href="logout.php" class="nav-link l">Logout</a></li>';
         } else {
 
-            echo '<a href="index.php" class="navbar-brand"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />  NEUST</a>
+            echo '<a href="index.php" class="navbar-brand mt-2"><img src="https://neust.edu.ph/wp-content/uploads/2020/06/neust_logo-1.png" width="70px" />  NEUST</a>
                         <!-- <span class="navbar-text" style="color: #ffffff;">Learn and Implement</span> -->
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myMenu" aria-controls="myMenu" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon">=</span>
