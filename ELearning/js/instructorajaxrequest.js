@@ -6,7 +6,7 @@ function checkInstructorLogin() {
     url: "instructor/instructorDashboard.php",
     type: "post",
     data: {
-      checkLogemail: "checklogmail",
+      checkLogemail: "checklogemail",
       instructorLogEmail: instructorLogEmail,
       instructorLogPass: instructorLogPass
     },

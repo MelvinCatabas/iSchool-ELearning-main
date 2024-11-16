@@ -127,5 +127,5 @@ if (isset($_SESSION['is_instructor_login'])) {
     
   </div> <!-- div Conatiner-fluid close from header -->
   <?php
-  include('./adminInclude/footer.php');
+  include('./instructorInclude/footer.php');
   ?>

@@ -479,5 +479,5 @@ $totalcourse = $result->num_rows;
   </div>  <!-- div Row close from header -->
  </div>  <!-- div Conatiner-fluid close from header -->
 <?php
-include('./adminInclude/footer.php'); 
+  include('./instructorInclude/footer.php');
 ?>

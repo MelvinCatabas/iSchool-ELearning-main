@@ -98,5 +98,5 @@ include('../dbConnection.php');
 </div>  <!-- div Conatiner-fluid close from header -->
 
 <?php
-include('./adminInclude/footer.php'); 
+  include('./instructorInclude/footer.php');
 ?>
