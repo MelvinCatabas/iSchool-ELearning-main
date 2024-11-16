@@ -12,6 +12,7 @@ include('./mainInclude/header.php');
 <!-- Start Video Background -->
 <?php
 if (!isset($_SESSION['is_login'])) {
+    
     echo '<div class="container-fluid remove-vid-marg">
               <div class="vid-parent">
                 <video playsinline autoplay muted loop>
@@ -23,6 +24,7 @@ if (!isset($_SESSION['is_login'])) {
                 <h1 class="my-content">Welcome to <b>NEUST</b></h1>
                 <small class="my-content" Style="font-size:16px;">Learn and Implement</small><br />';
     if (!isset($_SESSION['is_login'])) {
+
         echo '<a class="btn btns mt-3" href="#" data-toggle="modal" data-target="#stuRegModalCenter">Get Started</a>';
     }
     echo '</div>
@@ -35,7 +37,6 @@ if (!isset($_SESSION['is_login'])) {
 if (isset($_SESSION['is_login'])) {
 
 
-  
     if (isset($_GET['view_all']) && $_GET['view_all'] == 'true') {
         $sql = "SELECT * FROM course";
         $buttonText = "Limit View";
@@ -45,7 +46,17 @@ if (isset($_SESSION['is_login'])) {
     }
 
     $result = $conn->query($sql);
-    
+    echo '<script>
+    Swal.fire({
+        title: "Success!",
+        text: "You have successfully logged in.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false
+    }).then(function() {
+        Swal.close();
+    });
+</script>';
 
     echo '<div class="container-fluid py-5 my-5">';
 

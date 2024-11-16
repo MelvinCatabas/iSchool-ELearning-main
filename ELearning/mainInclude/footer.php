@@ -88,10 +88,6 @@
  </div> 
  <!-- End Student Login Modal -->
 
-
-
-
-
  <!-- Start Instructor Login Modal -->
  <div class="modal fade" id="instLoginModalCenter" tabindex="-1" role="dialog" aria-labelledby="instLoginModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">

@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Ajax Call for Already Exists Email Verification
-  $("#stuemail").on("keypress blur", function() {
+  $("#stuemail").on("keypress blur", function () {
     var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
     var stuemail = $("#stuemail").val();
     $.ajax({
@@ -8,9 +8,9 @@ $(document).ready(function() {
       type: "post",
       data: {
         checkemail: "checkmail",
-        stuemail: stuemail
+        stuemail: stuemail,
       },
-      success: function(data) {
+      success: function (data) {
         console.log(data);
         if (data != 0) {
           $("#statusMsg2").html(
@@ -33,18 +33,18 @@ $(document).ready(function() {
             '<small style="color:red;"> Please Enter Email ! </small>'
           );
         }
-      }
+      },
     });
   });
   // Checking name on keypress
-  $("#stuname").keypress(function() {
+  $("#stuname").keypress(function () {
     var stuname = $("#stuname").val();
     if (stuname !== "") {
       $("#statusMsg1").html(" ");
     }
   });
   // Checking Password on keypress
-  $("#stupass").keypress(function() {
+  $("#stupass").keypress(function () {
     var stupass = $("#stupass").val();
     if (stupass !== "") {
       $("#statusMsg3").html(" ");
@@ -92,9 +92,9 @@ function addStu() {
         stusignup: "stusignup",
         stuname: stuname,
         stuemail: stuemail,
-        stupass: stupass
+        stupass: stupass,
       },
-      success: function(data) {
+      success: function (data) {
         console.log(data);
         if (data == "OK") {
           $("#successMsg").html(
@@ -107,7 +107,7 @@ function addStu() {
             '<span class="alert alert-danger"> Unable to Register ! </span>'
           );
         }
-      }
+      },
     });
   }
 }
@@ -135,9 +135,9 @@ function checkStuLogin() {
     data: {
       checkLogemail: "checklogmail",
       stuLogEmail: stuLogEmail,
-      stuLogPass: stuLogPass
+      stuLogPass: stuLogPass,
     },
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       if (data == 0) {
         $("#statusLogMsg").html(
@@ -153,7 +153,7 @@ function checkStuLogin() {
           window.location.href = "index.php";
         }, 1000);
       }
-    }
+    },
   });
 }
 
@@ -172,9 +172,9 @@ function checkInstLogin() {
     data: {
       checkLogemail: "checklogemail",
       instLogEmail: instLogEmail,
-      instLogPass: instLogPass
+      instLogPass: instLogPass,
     },
-    success: function(data) {
+    success: function (data) {
       console.log(data);
       if (data == 0) {
         $("#statusLogMsg").html(
@@ -191,9 +191,9 @@ function checkInstLogin() {
         }, 1000);
       }
     },
-    error: function(e){
-      console.log(e)
-    }
+    error: function (e) {
+      console.log(e);
+    },
   });
 }
 
