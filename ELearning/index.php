@@ -46,17 +46,23 @@ if (isset($_SESSION['is_login'])) {
     }
 
     $result = $conn->query($sql);
-    echo '<script>
-    Swal.fire({
-        title: "Success!",
-        text: "You have successfully logged in.",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false
-    }).then(function() {
-        Swal.close();
-    });
-</script>';
+
+    if (!isset($_SESSION['alert_shown'])) {
+        echo '<script>
+            Swal.fire({
+                title: "Success!",
+                text: "You have successfully logged in.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            }).then(function() {
+                Swal.close();
+            });
+        </script>';
+
+        
+        $_SESSION['alert_shown'] = true;
+    }
 
     echo '<div class="container-fluid py-5 my-5">';
 

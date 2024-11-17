@@ -9,6 +9,23 @@ include('../dbConnection.php');
 
  if(isset($_SESSION['is_admin_login'])){
   $adminEmail = $_SESSION['adminLogEmail'];
+
+  if (!isset($_SESSION['alert_shown'])) {
+    echo '<script>
+        Swal.fire({
+            title: "Success!",
+            text: "You have successfully logged in.",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false
+        }).then(function() {
+            Swal.close();
+        });
+    </script>';
+
+    
+    $_SESSION['alert_shown'] = true;
+}
  } else {
   echo "<script> location.href='../index.php'; </script>";
  }

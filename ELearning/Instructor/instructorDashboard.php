@@ -9,6 +9,7 @@ include('../dbConnection.php');
 
  if(isset($_SESSION['is_instructor_login'])){
   $instructorEmail = $_SESSION['instructorLogEmail'];
+  
  } else {
   echo "<script> location.href='../index.php'; </script>";
  }
