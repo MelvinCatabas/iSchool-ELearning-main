@@ -24,13 +24,9 @@ include('../dbConnection.php');
     $cid = $_REQUEST['course_id'];
     $cname = $_REQUEST['course_name'];
     $cdesc = $_REQUEST['course_desc'];
-    $cauthor = $_REQUEST['course_author'];
-    $cduration = $_REQUEST['course_duration'];
-    $cprice = $_REQUEST['course_price'];
-    $coriginalprice = $_REQUEST['course_original_price'];
     $cimg = '../image/courseimg/'. $_FILES['course_img']['name'];
     
-   $sql = "UPDATE course SET course_id = '$cid', course_name = '$cname', course_desc = '$cdesc', course_author='$cauthor', course_duration='$cduration', course_price='$cprice', course_original_price='$coriginalprice', course_img='$cimg' WHERE course_id = '$cid'";
+   $sql = "UPDATE course SET course_id = '$cid', course_name = '$cname', course_desc = '$cdesc', course_img='$cimg' WHERE course_id = '$cid'";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Updated Successfully </div>';
@@ -64,22 +60,6 @@ include('../dbConnection.php');
     <div class="form-group">
       <label for="course_desc">Course Description</label>
       <textarea class="form-control" id="course_desc" name="course_desc" row=2><?php if(isset($row['course_desc'])) {echo $row['course_desc']; }?></textarea>
-    </div>
-    <div class="form-group">
-      <label for="course_author">Author</label>
-      <input type="text" class="form-control" id="course_author" name="course_author" value="<?php if(isset($row['course_author'])) {echo $row['course_author']; }?>">
-    </div>
-    <div class="form-group">
-      <label for="course_duration">Course Duration</label>
-      <input type="text" class="form-control" id="course_duration" name="course_duration" value="<?php if(isset($row['course_duration'])) {echo $row['course_duration']; }?>">
-    </div>
-    <div class="form-group">
-      <label for="course_original_price">Course Original Price</label>
-      <input type="text" class="form-control" id="course_original_price" name="course_original_price" onkeypress="isInputNumber(event)" value="<?php if(isset($row['course_original_price'])) {echo $row['course_original_price']; }?>">
-    </div>
-    <div class="form-group">
-      <label for="course_price">Course Selling Price</label>
-      <input type="text" class="form-control" id="course_price" name="course_price" onkeypress="isInputNumber(event)" value="<?php if(isset($row['course_price'])) {echo $row['course_price']; }?>">
     </div>
     <div class="form-group">
       <label for="course_img">Course Image</label>

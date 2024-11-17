@@ -8,10 +8,21 @@ include('./instructorInclude/header.php');
 include('../dbConnection.php');
 
  if(isset($_SESSION['is_instructor_login'])){
-  $adminEmail = $_SESSION['instructorLogEmail'];
+  $instructorEmail = $_SESSION['instructorLogEmail'];
  } else {
   echo "<script> location.href='../index.php'; </script>";
  }
+
+$sqlInstructor = "SELECT instructor_id FROM instructor WHERE instructor_email = '$instructorEmail'";
+$resultInstructor = $conn->query($sqlInstructor);
+
+if ($resultInstructor->num_rows == 1) {
+    $rowInstructor = $resultInstructor->fetch_assoc();
+    $instructorId = $rowInstructor['instructor_id'];
+} else {
+    echo "Instructor not found.";
+    exit;
+}
  ?>
 
   <div class="col-sm-9 mt-5" style="margin-left:50px;">
@@ -28,7 +39,7 @@ include('../dbConnection.php');
                     </div>
                 </div>
     <?php
-      $sql = "SELECT * FROM course";
+      $sql = "SELECT * FROM course WHERE instructor_id = $instructorId";
       $result = $conn->query($sql);
       if($result->num_rows > 0){
   
