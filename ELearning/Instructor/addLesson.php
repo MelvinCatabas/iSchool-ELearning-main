@@ -22,12 +22,11 @@ include('../dbConnection.php');
    $lesson_name = $_REQUEST['lesson_name'];
    $lesson_desc = $_REQUEST['lesson_desc'];
    $course_id = $_REQUEST['course_id'];
-   $course_name = $_REQUEST['course_name'];
    $lesson_link = $_FILES['lesson_link']['name']; 
    $lesson_link_temp = $_FILES['lesson_link']['tmp_name'];
    $link_folder = '../lessonvid/'.$lesson_link; 
    move_uploaded_file($lesson_link_temp, $link_folder);
-    $sql = "INSERT INTO lesson (lesson_name, lesson_desc, lesson_link, course_id, course_name) VALUES ('$lesson_name', '$lesson_desc','$link_folder', '$course_id', '$course_name')";
+    $sql = "INSERT INTO lesson (lesson_name, lesson_desc, lesson_link, course_id) VALUES ('$lesson_name', '$lesson_desc','$link_folder', '$course_id')";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Lesson Added Successfully </div>';
