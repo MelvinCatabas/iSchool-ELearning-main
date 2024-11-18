@@ -42,8 +42,9 @@ if (isset($_POST['delete'])) {
           $admin = $result->fetch_assoc();
 
           if ($adminPassword === $admin['admin_pass']) {
-              $sql = "DELETE FROM student WHERE stu_id = $studentId";
-              if ($conn->query($sql) === TRUE) {
+              $sql = "DELETE FROM enrollees WHERE stu_id = $studentId;";
+              $sql .= "DELETE FROM student WHERE stu_id = $studentId;";
+              if ($conn->multi_query($sql) === TRUE) {
                 echo "<script>
                     Swal.fire({
                         icon: 'success',
