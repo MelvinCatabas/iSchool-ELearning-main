@@ -8,6 +8,7 @@ define('PAGE', 'mycourse');
 include('./stuInclude/header.php'); 
 include_once('../dbConnection.php');
 
+
  if(isset($_SESSION['is_login'])){
   $stuLogEmail = $_SESSION['stuLogEmail'];
  } else {
