@@ -23,6 +23,105 @@ if ($resultInstructor->num_rows == 1) {
     echo "Instructor not found.";
     exit;
 }
+
+// // Deletion Handling
+// if (isset($_POST['confirmDelete'])) {
+//   $courseId = intval($_POST['courseId']); // Sanitize input
+//   error_log("Deleting Course ID: " . $courseId); // Debugging
+
+//   $sql = "DELETE FROM activity WHERE course_id = $courseId;";
+//   $sql .= "DELETE FROM lesson WHERE course_id = $courseId;";
+//   $sql .= "DELETE FROM enrollees WHERE course_id = $courseId;";
+//   $sql .= "DELETE FROM course WHERE course_id = $courseId;";
+
+//   // Log the SQL query for debugging
+//   error_log("Executing SQL: " . $sql);
+
+//   // Execute the query
+//   if ($conn->multi_query($sql)) {
+//       do {
+//           if ($result = $conn->store_result()) {
+//               $result->free();
+//           }
+//       } while ($conn->more_results() && $conn->next_result());
+
+//       echo '<meta http-equiv="refresh" content= "0;URL=?deleted" />';
+//   } else {
+//       error_log("SQL Error: " . $conn->error); // Log the error
+//       echo "Unable to Delete Data: " . $conn->error; // Display error
+//   }
+// }
+
+if(isset($_POST['delete'])){
+  $instructorPassword = $_POST['instructorPassword'];
+  $courseId = $_POST['courseId'];
+
+  if(isset($instructorEmail)){
+    $sql = "SELECT instructor_pass FROM instructor WHERE instructor_email = '$instructorEmail'";
+    $result = $conn->query($sql);
+
+    if($result->num_rows > 0){
+      $instructor = $result->fetch_assoc();
+
+      if($instructorPassword === $instructor['instructor_pass']){
+        $sql = "DELETE FROM activity WHERE course_id = $courseId;";
+        $sql .= "DELETE FROM lesson WHERE course_id = $courseId;";
+        $sql .= "DELETE FROM enrollees WHERE course_id = $courseId;";
+        $sql .= "DELETE FROM course WHERE course_id = $courseId;";
+
+        if($conn->multi_query($sql) === TRUE){
+          echo "<script>
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Course Deleted',
+                      text: 'The course has been successfully deleted.',
+                      showConfirmButton: false,
+                      timer: 1500
+                  }).then(() => {
+                      window.location.href = '?deleted=true';
+                  });
+              </script>";
+
+              echo '<meta http-equiv="refresh" content= "0;URL=?deleted" />';
+        } else {
+          echo "<script>
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: 'Unable to delete course. Please try again.',
+                  });
+              </script>";
+        }
+      } else {
+        echo "<script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Incorrect Password',
+                    text: 'Please enter the correct admin password.',
+                });
+            </script>";
+      }
+    } else {
+      echo "<script>
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Admin Not Found',
+                  text: 'No admin found with the provided email.',
+              });
+          </script>";
+    }
+  } else {
+    echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Session Error',
+                text: 'Admin email not set in session.',
+            });
+        </script>";
+  }
+}
+
+
 ?>
 
 <!-- Modal for Deletion Confirmation -->
@@ -34,13 +133,14 @@ if ($resultInstructor->num_rows == 1) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete this course? This action cannot be undone.</p>
-        <form method="POST" action="">
+      <form method="POST" action="">
+      <p>Enter your password to confirm the deletion:</p>
+          <input type="password" name="instructorPassword" class="form-control" placeholder="instructor Password" required />
           <input type="hidden" name="courseId" id="courseId" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" name="confirmDelete" class="btn btn-danger">Delete</button>
+        <button type="submit" name="delete" class="btn btn-danger">Delete</button>
         </form>
       </div>
     </div>
@@ -94,34 +194,6 @@ if ($result->num_rows > 0) {
     echo "0 Results";
 }
 
-// Deletion Handling
-if (isset($_POST['confirmDelete'])) {
-  $courseId = intval($_POST['courseId']); // Sanitize input
-  error_log("Deleting Course ID: " . $courseId); // Debugging
-
-  $sql = "DELETE FROM activity WHERE course_id = $courseId;";
-  $sql .= "DELETE FROM lesson WHERE course_id = $courseId;";
-  $sql .= "DELETE FROM enrollees WHERE course_id = $courseId;";
-  $sql .= "DELETE FROM course WHERE course_id = $courseId;";
-
-  // Log the SQL query for debugging
-  error_log("Executing SQL: " . $sql);
-
-  // Execute the query
-  if ($conn->multi_query($sql)) {
-      do {
-          if ($result = $conn->store_result()) {
-              $result->free();
-          }
-      } while ($conn->more_results() && $conn->next_result());
-
-      echo '<meta http-equiv="refresh" content= "0;URL=?deleted" />';
-  } else {
-      error_log("SQL Error: " . $conn->error); // Log the error
-      echo "Unable to Delete Data: " . $conn->error; // Display error
-  }
-}
-
 ?>
 <div class="m-3">
   <a class="btn btn-danger box" href="./addCourse.php"><i class="fas fa-plus fa-2x"></i></a>
@@ -132,14 +204,17 @@ if (isset($_POST['confirmDelete'])) {
 </div> <!-- div Container-fluid close from header -->
 
 <script>
-  // JavaScript to set course ID in the modal
+document.addEventListener('DOMContentLoaded', () => {
+  const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal')); // Bootstrap modal instance
+
   document.querySelectorAll('.delete-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const courseId = button.getAttribute('data-id');
-      document.getElementById('courseId').value = courseId;
-    });
+      button.addEventListener('click', function () {
+          const courseId = this.getAttribute('data-id'); // Get course ID from data-id attribute
+          document.getElementById('courseId').value = courseId; // Set the hidden input in the modal
+          deleteModal.show(); // Show the modal
+      });
   });
-  
+});
 </script>
 
 <?php
