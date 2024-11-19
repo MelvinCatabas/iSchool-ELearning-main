@@ -113,14 +113,34 @@ if (!isset($_SESSION)) {
                 $enrolment_date = date("Y-m-d");
 
                 if (isAlreadyEnrolled($conn, $stu_id, $course_id)) {
-                    echo "<script>alert('You are already enrolled in this course!');</script>";
+                    echo '<script>
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You have successfully enrolled in this course",
+                        icon: "success",
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(function() {
+                        Swal.close();
+                    });
+                </script>';
                 } else {
                     $sql = "INSERT INTO enrollees (stu_id, course_id, enrolment_date) VALUES (?, ?, ?)";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param("iis", $stu_id, $course_id, $enrolment_date);
 
                     if ($stmt->execute()) {
-                        echo "<script>alert('Successfully enrolled!');</script>";
+                        echo '<script>
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You have successfully enrolled",
+                            icon: "success",
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(function() {
+                            Swal.close();
+                        });
+                    </script>';
                     } else {
                         echo "<script>alert('Enrollment failed. Please try again later.');</script>";
                     }
