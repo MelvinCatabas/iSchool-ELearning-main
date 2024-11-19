@@ -33,7 +33,7 @@ if (isset($_REQUEST['courseSubmitBtn'])) {
     // Assigning User Values to Variables
     $course_name = $_REQUEST['course_name'];
     $course_desc = $_REQUEST['course_desc'];
-    $course_date = !empty($_REQUEST['course_date']) ? $_REQUEST['course_date'] : $currentDate; // Use current date if not provided
+    $course_date = !empty($_REQUEST['course_date']) ? $_REQUEST['course_date'] : $currentDate; 
     $course_image = $_FILES['course_img']['name']; 
     $course_image_temp = $_FILES['course_img']['tmp_name'];
     $img_folder = '../image/courseimg/' . $course_image; 
