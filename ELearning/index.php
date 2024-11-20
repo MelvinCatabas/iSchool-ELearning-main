@@ -75,7 +75,7 @@ if (isset($_SESSION['is_login'])) {
                 <p class="mb-1 pt-2 text-bold">NEUST E-Learning</p>
                 <h5 class="font-weight-bolder">E Learning</h5>
                 <p class="mb-5">From colors, cards, typography to complex elements, you will find the full documentation.</p>
-                <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+                <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://neust.edu.ph/" target="_blank">
                   Read More
                   <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
                 </a>
@@ -101,7 +101,7 @@ if (isset($_SESSION['is_login'])) {
               <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
                 <h5 class="text-white font-weight-bolder mb-4 pt-2">Work with the rockets</h5>
                 <p class="text-white">Wealth creation is an evolutionarily recent positive-sum game. It is all about who take the opportunity first.</p>
-                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="blog.html" target="_blank">
                   Read More
                   <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
                 </a>
