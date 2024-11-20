@@ -129,7 +129,7 @@ if (isset($_SESSION['is_login'])) {
 
             echo '
             <!-- Course Card -->
-            <a href="coursedetails.php?course_id=' . $course_id . '" class="col-md-3 mb-3">
+            <a style="text-decoration:none;" href="coursedetails.php?course_id=' . $course_id . '" class="col-md-3 mb-3">
                 <div class="card" style="height:400px">
                     <img src="' . str_replace('..', '.', $row['course_img']) . '" class="card-img-top" alt="Course Image"/>
                     <div class="card-body">
