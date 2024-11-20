@@ -155,9 +155,9 @@ if(isset($_POST['delete'])){
           }
         ?>
 
-        <div class="mt-3">
+        <!-- <div class="mt-3">
           <a class="btn btn-danger box mx-3" href="addCourse.php"><i class="fas fa-plus fa-2x"></i></a>
-        </div>
+        </div> -->
       </div>
     </div> <!-- div Row close -->
   </div> <!-- div Container-fluid close -->

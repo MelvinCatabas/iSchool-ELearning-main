@@ -19,14 +19,14 @@ include('../dbConnection.php');
    $msg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fileds </div>';
   } else {
    // Assigning User Values to Variable
-   $activity_id = $_REQUEST['activity_id'];
+  //  $activity_id = $_REQUEST['activity_id'];
    $activity_title = $_REQUEST['activity_title'];
    $course_id = $_REQUEST['course_id'];
-   $activity_link = $_FILES['activity_link']['name']; 
-   $activity_link_temp = $_FILES['activity_link']['tmp_name'];
-   $link_folder = '../activitylink/'.$activity_link; 
-   move_uploaded_file($activity_link_temp, $link_folder);
-    $sql = "INSERT INTO activity (activity_title, activity_link, course_id) VALUES ('$activity_title', '$link_folder', '$course_id')";
+   $activity_link = $_REQUEST['activity_link']; 
+  //  $activity_link_temp = $_FILES['activity_link']['tmp_name'];
+  //  $link_folder = '../activitylink/'.$activity_link; 
+  //  move_uploaded_file($activity_link_temp, $link_folder);
+    $sql = "INSERT INTO activity (activity_title, activity_link, course_id) VALUES ('$activity_title', '$activity_link', '$course_id')";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Lesson Added Successfully </div>';
@@ -50,7 +50,7 @@ include('../dbConnection.php');
     </div>
     <div class="form-group">
       <label for="activity_link">Activity File Link</label>
-      <input type="file" class="form-control-file" id="activity_link" name="activity_link">
+      <input type="text" class="form-control-file" id="activity_link" name="activity_link">
     </div>
     <div class="text-center">
       <button type="submit" class="btn btn-danger" id="activitySubmitBtn" name="activitySubmitBtn">Submit</button>

@@ -37,6 +37,15 @@ $totalcourse = $result->num_rows;
  $result = $conn->query($sql);
  $totalstu = $result->num_rows;
 
+ $sql = "SELECT * FROM lesson";
+ $result = $conn->query($sql);
+ $totallesson = $result->num_rows;
+
+ $sql = "SELECT * FROM activity";
+ $result = $conn->query($sql);
+ $totalact = $result->num_rows;
+
+
 ?>
   <div class="col-sm-9 mt-5">
 
@@ -99,9 +108,9 @@ $totalcourse = $result->num_rows;
                                         <i class="ni ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                     <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                                        2300
+                                    <?php echo $totallesson; ?>
                                     </h5>
-                                    <span class="text-white text-sm">Purchases</span>
+                                    <span class="text-white text-sm">Lesson</span>
                                 </div>
                                 <div class="col-4">
 
@@ -120,9 +129,9 @@ $totalcourse = $result->num_rows;
                                         <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                     <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                                        940
+                                    <?php echo $totalact; ?>
                                     </h5>
-                                    <span class="text-white text-sm">Likes</span>
+                                    <span class="text-white text-sm">Activity</span>
                                 </div>
                                 <div class="col-4">
 
