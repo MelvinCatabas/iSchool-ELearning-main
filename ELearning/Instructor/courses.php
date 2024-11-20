@@ -24,33 +24,6 @@ if ($resultInstructor->num_rows == 1) {
     exit;
 }
 
-// // Deletion Handling
-// if (isset($_POST['confirmDelete'])) {
-//   $courseId = intval($_POST['courseId']); // Sanitize input
-//   error_log("Deleting Course ID: " . $courseId); // Debugging
-
-//   $sql = "DELETE FROM activity WHERE course_id = $courseId;";
-//   $sql .= "DELETE FROM lesson WHERE course_id = $courseId;";
-//   $sql .= "DELETE FROM enrollees WHERE course_id = $courseId;";
-//   $sql .= "DELETE FROM course WHERE course_id = $courseId;";
-
-//   // Log the SQL query for debugging
-//   error_log("Executing SQL: " . $sql);
-
-//   // Execute the query
-//   if ($conn->multi_query($sql)) {
-//       do {
-//           if ($result = $conn->store_result()) {
-//               $result->free();
-//           }
-//       } while ($conn->more_results() && $conn->next_result());
-
-//       echo '<meta http-equiv="refresh" content= "0;URL=?deleted" />';
-//   } else {
-//       error_log("SQL Error: " . $conn->error); // Log the error
-//       echo "Unable to Delete Data: " . $conn->error; // Display error
-//   }
-// }
 
 if(isset($_POST['delete'])){
   $instructorPassword = $_POST['instructorPassword'];
@@ -97,7 +70,7 @@ if(isset($_POST['delete'])){
                 Swal.fire({
                     icon: 'error',
                     title: 'Incorrect Password',
-                    text: 'Please enter the correct admin password.',
+                    text: 'Please enter the correct Instructor password.',
                 });
             </script>";
       }
@@ -105,8 +78,8 @@ if(isset($_POST['delete'])){
       echo "<script>
               Swal.fire({
                   icon: 'error',
-                  title: 'Admin Not Found',
-                  text: 'No admin found with the provided email.',
+                  title: 'Instructor Not Found',
+                  text: 'No Instructor found with the provided email.',
               });
           </script>";
     }
@@ -115,7 +88,7 @@ if(isset($_POST['delete'])){
             Swal.fire({
                 icon: 'error',
                 title: 'Session Error',
-                text: 'Admin email not set in session.',
+                text: 'Instructor email not set in session.',
             });
         </script>";
   }
@@ -150,7 +123,7 @@ if(isset($_POST['delete'])){
 <div class="col-sm-9 mt-5" style="margin-left:50px;">
   <!-- Table -->
   <div class="row my-4">
-    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+    <div class="col-lg-8 col-md-6 mb-md-0 mb-4" style="width:1200px;">
       <div class="card">
         <div class="card-header pb-0">
           <div class="row">
@@ -169,7 +142,7 @@ if ($result->num_rows > 0) {
           <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course ID</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course Name</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
           </tr>
         </thead>
         <tbody>';
