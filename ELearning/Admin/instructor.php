@@ -1,84 +1,136 @@
 <?php
-if(!isset($_SESSION)){ 
-  session_start(); 
+if (!isset($_SESSION)) { 
+    session_start(); 
 }
+
 define('TITLE', 'Instructor');
 define('PAGE', 'instructor');
 include('./adminInclude/header.php'); 
 include('../dbConnection.php');
 
-if(isset($_SESSION['is_admin_login'])){
-  $adminEmail = $_SESSION['adminLogEmail'];
+// Verify admin session
+if (isset($_SESSION['is_admin_login'])) {
+    $adminEmail = $_SESSION['adminLogEmail'];
 } else {
-  echo "<script> location.href='../index.php'; </script>";
+    echo "<script> location.href='../index.php'; </script>";
+    exit;
 }
 
-if(isset($_POST['delete'])){
-  $adminPassword = $_POST['adminPassword'];
-  $instructorId = $_POST['instructorId'];
+if (isset($_POST['delete'])) {
+    $adminPassword = $_POST['adminPassword'];
+    $instructorId = $_POST['instructorId'];
 
-  if(isset($adminEmail)){
-    $sql = "SELECT admin_pass FROM admin WHERE admin_email = '$adminEmail'";
-    $result = $conn->query($sql);
+    if (!empty($adminEmail) && !empty($adminPassword) && !empty($instructorId)) {
+        // Fetch admin hashed password from the database
+        $stmt = $conn->prepare("SELECT admin_pass FROM admin WHERE admin_email = ?");
+        $stmt->bind_param("s", $adminEmail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
 
-    if($result->num_rows > 0){
-      $admin = $result->fetch_assoc();
+        if ($result->num_rows > 0) {
+            $admin = $result->fetch_assoc();
 
-      if($adminPassword === $admin['admin_pass']){
+            // Verify password
+            if ($adminPassword === $admin['admin_pass']) {
+                // Fetch related course IDs
+                $stmt = $conn->prepare("SELECT course_id FROM course WHERE instructor_id = ?");
+                $stmt->bind_param("i", $instructorId);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
 
-        $sql = "DELETE FROM enrollees WHERE stu_id = $instructorId;";
-        $sql .= "DELETE FROM course WHERE instructor_id = $instructorId;";
-        $sql .= "DELETE FROM instructor WHERE instructor_id = $instructorId;";
-        if($conn->multi_query($sql) === TRUE){
-          echo "<script>
-                  Swal.fire({
-                      icon: 'success',
-                      title: 'Instructor Deleted',
-                      text: 'The instructor has been successfully deleted.',
-                      showConfirmButton: false,
-                      timer: 1500
-                  }).then(() => {
-                      window.location.href = '?deleted=true';
-                  });
-              </script>";
+                $courseIds = [];
+                while ($row = $result->fetch_assoc()) {
+                    $courseIds[] = $row['course_id'];
+                }
+
+                // Begin deletion in transaction
+                $conn->begin_transaction();
+                try {
+                    if (!empty($courseIds)) {
+                        foreach ($courseIds as $courseId) {
+                            $stmt = $conn->prepare("DELETE FROM activity WHERE course_id = ?");
+                            $stmt->bind_param("i", $courseId);
+                            $stmt->execute();
+                            $stmt->close();
+
+                            $stmt = $conn->prepare("DELETE FROM lesson WHERE course_id = ?");
+                            $stmt->bind_param("i", $courseId);
+                            $stmt->execute();
+                            $stmt->close();
+                        }
+                    }
+
+                    // Delete enrollees, courses, and instructor
+                    $stmt = $conn->prepare("DELETE FROM enrollees WHERE stu_id = ?");
+                    $stmt->bind_param("i", $instructorId);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    $stmt = $conn->prepare("DELETE FROM course WHERE instructor_id = ?");
+                    $stmt->bind_param("i", $instructorId);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    $stmt = $conn->prepare("DELETE FROM instructor WHERE instructor_id = ?");
+                    $stmt->bind_param("i", $instructorId);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    $conn->commit();
+
+                    echo "<script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Instructor Deleted',
+                                text: 'The instructor has been successfully deleted.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                window.location.href = '?deleted=true';
+                            });
+                        </script>";
+                } catch (Exception $e) {
+                    $conn->rollback();
+                    echo "<script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Unable to delete instructor. Please try again.',
+                            });
+                        </script>";
+                }
+            } else {
+                echo "<script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Incorrect Password',
+                            text: 'Please enter the correct admin password.',
+                        });
+                    </script>";
+            }
         } else {
-          echo "<script>
-                  Swal.fire({
-                      icon: 'error',
-                      title: 'Error',
-                      text: 'Unable to delete course. Please try again.',
-                  });
-              </script>";
+            echo "<script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Admin Not Found',
+                        text: 'No admin found with the provided email.',
+                    });
+                </script>";
         }
-      } else {
+    } else {
         echo "<script>
                 Swal.fire({
                     icon: 'error',
-                    title: 'Incorrect Password',
-                    text: 'Please enter the correct admin password.',
+                    title: 'Invalid Input',
+                    text: 'Please provide all the required inputs.',
                 });
             </script>";
-      }
-    } else {
-      echo "<script>
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Admin Not Found',
-                  text: 'No admin found with the provided email.',
-              });
-          </script>";
     }
-  } else {
-    echo "<script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Session Error',
-                text: 'Admin email not set in session.',
-            });
-        </script>";
-  }
 }
 ?>
+
 
 <!-- Modal for Deletion Confirmation -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">

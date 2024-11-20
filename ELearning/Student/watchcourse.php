@@ -88,7 +88,7 @@ if (isset($_SESSION['is_login'])) {
 
          </div>
          <div class="col-sm-8">
-            <video id="videoarea" src="" class="mt-5 w-85 ml-2" style="margin-left: 64px;" controls></video>
+         <iframe width="681" height="383" src="https://youtube.com/embed/rfCrPS4MrDc" title="PALAGI - TJxKZ | LIVE SESSIONS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
          </div>
       </div>
    </div>
