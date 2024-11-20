@@ -37,6 +37,15 @@ $totalcourse = $result->num_rows;
  $result = $conn->query($sql);
  $totalstu = $result->num_rows;
 
+ $sql = "SELECT * FROM lesson";
+ $result = $conn->query($sql);
+ $totallesson = $result->num_rows;
+
+ $sql = "SELECT * FROM activity";
+ $result = $conn->query($sql);
+ $totalact = $result->num_rows;
+
+
 ?>
   <div class="col-sm-9 mt-5">
 
@@ -99,9 +108,9 @@ $totalcourse = $result->num_rows;
                                         <i class="ni ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                     <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                                        2300
+                                    <?php echo $totallesson; ?>
                                     </h5>
-                                    <span class="text-white text-sm">Purchases</span>
+                                    <span class="text-white text-sm">Lesson</span>
                                 </div>
                                 <div class="col-4">
 
@@ -120,9 +129,9 @@ $totalcourse = $result->num_rows;
                                         <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                                     </div>
                                     <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                                        940
+                                    <?php echo $totalact; ?>
                                     </h5>
-                                    <span class="text-white text-sm">Likes</span>
+                                    <span class="text-white text-sm">Activity</span>
                                 </div>
                                 <div class="col-4">
 
@@ -147,12 +156,12 @@ $totalcourse = $result->num_rows;
                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-0">
                             <div class="w-100">
                                 <div class="d-flex mb-2">
-                                    <span class="me-2 text-sm font-weight-bold text-dark">Positive Reviews</span>
-                                    <span class="ms-auto text-sm font-weight-bold">80%</span>
+                                    <span class="me-2 text-sm font-weight-bold text-dark">Student</span>
+                                    <span class="ms-auto text-sm font-weight-bold"><?php echo $totalstu; ?>%</span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar bg-primary w-80" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-primary w-<?php echo $totalstu; ?>" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -160,12 +169,12 @@ $totalcourse = $result->num_rows;
                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                             <div class="w-100">
                                 <div class="d-flex mb-2">
-                                    <span class="me-2 text-sm font-weight-bold text-dark">Neutral Reviews</span>
-                                    <span class="ms-auto text-sm font-weight-bold">17%</span>
+                                    <span class="me-2 text-sm font-weight-bold text-dark">Course</span>
+                                    <span class="ms-auto text-sm font-weight-bold"> <?php echo $totalcourse; ?>%</span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar bg-primary w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-primary w-<?php echo $totalcourse; ?>" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -173,12 +182,26 @@ $totalcourse = $result->num_rows;
                         <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                             <div class="w-100">
                                 <div class="d-flex mb-2">
-                                    <span class="me-2 text-sm font-weight-bold text-dark">Negative Reviews</span>
-                                    <span class="ms-auto text-sm font-weight-bold">3%</span>
+                                    <span class="me-2 text-sm font-weight-bold text-dark">Lesson</span>
+                                    <span class="ms-auto text-sm font-weight-bold"> <?php echo $totallesson; ?>%</span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
-                                        <div class="progress-bar bg-primary w-5" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-primary w-<?php echo $totallesson; ?>" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                            <div class="w-100">
+                                <div class="d-flex mb-2">
+                                    <span class="me-2 text-sm font-weight-bold text-dark">Activity</span>
+                                    <span class="ms-auto text-sm font-weight-bold"><?php echo $totalact; ?>%</span>
+                                </div>
+                                <div>
+                                    <div class="progress progress-md">
+                                        <div class="progress-bar bg-primary w-<?php echo $totalact; ?>  " role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -186,20 +209,20 @@ $totalcourse = $result->num_rows;
                     </ul>
                 </div>
                 <div class="card-footer pt-0 p-3 d-flex align-items-center">
-                    <div class="w-60">
+                    <!-- <div class="w-60">
                         <p class="text-sm">
                             More than <b>1,500,000</b> developers used Creative Tim's products and over <b>700,000</b> projects were created.
                         </p>
                     </div>
                     <div class="w-40 text-end">
                         <a class="btn btn-dark mb-0 text-end" href="javascript:;">View all reviews</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
     <div class="row my-4">
-        <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+        <div class="col-lg-8 col-md-6 mb-md-0 mb-4" style="width:1000px;">
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="row">

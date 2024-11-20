@@ -94,7 +94,7 @@ include('../dbConnection.php');
 
    <!-- div Row close from header -->
  <?php if(isset($_SESSION['course_id'])){
-   echo '<div class="m-3"><a class="btn btn-danger box" href="./addLesson.php"><i class="fas fa-plus fa-2x"></i></a></div>';
+  //  echo '<div class="m-3"><a class="btn btn-danger box" href="./addLesson.php"><i class="fas fa-plus fa-2x"></i></a></div>';
    } ?>
   
 </div>

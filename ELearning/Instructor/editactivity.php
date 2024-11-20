@@ -22,12 +22,13 @@ include('../dbConnection.php');
     // Assigning User Values to Variable
     $activity_id = $_REQUEST['activity_id'];
     $activity_title = $_REQUEST['activity_title'];
-    $llink = '../activitylink/'. $_FILES['activity_link']['name'];
+    $activity_link = $_REQUEST['activity_link'];
+    // $llink = '../activitylink/'. $_FILES['activity_link']['name'];
     $cid = $_REQUEST['course_id'];
     // $cname = $_REQUEST['course_name'];
     
     
-   $sql = "UPDATE activity SET activity_id = '$activity_id', activity_title = '$activity_title', activity_link = '$llink', course_id='$cid' WHERE activity_id = '$activity_id'";
+   $sql = "UPDATE activity SET activity_id = '$activity_id', activity_title = '$activity_title', activity_link = '$activity_link', course_id='$cid' WHERE activity_id = '$activity_id'";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Updated Successfully </div>';
@@ -59,7 +60,7 @@ include('../dbConnection.php');
 
     <div class="form-group">
       <label for="activity_link">Activity Link</label>
-      <input type="file" class="form-control" id="activity_link" name="activity_link" value="<?php if(isset($row['activity_link'])) {echo $row['activity_link']; }?>">
+      <input type="text" class="form-control" id="activity_link" name="activity_link" value="<?php if(isset($row['activity_link'])) {echo $row['activity_link']; }?>">
     </div>
     <div class="form-group">
       <label for="course_id">Course ID</label>
