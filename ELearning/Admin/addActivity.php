@@ -4,11 +4,11 @@ if(!isset($_SESSION)){
 }
 define('TITLE', 'Add Lesson');
 define('PAGE', 'add lesson');
-include('./instructorInclude/header.php'); 
+include('./adminInclude/header.php'); 
 include('../dbConnection.php');
 
- if(isset($_SESSION['is_instructor_login'])){
-  $instructorEmail = $_SESSION['instructorLogEmail'];
+ if(isset($_SESSION['is_admin_login'])){
+  $adminEmail = $_SESSION['adminLogEmail'];
  } else {
   echo "<script> location.href='../index.php'; </script>";
  }
@@ -73,5 +73,5 @@ include('../dbConnection.php');
 </div>  <!-- div Conatiner-fluid close from header -->
 
 <?php
-include('./instructorInclude/footer.php');
+include('./adminInclude/footer.php');
 ?>

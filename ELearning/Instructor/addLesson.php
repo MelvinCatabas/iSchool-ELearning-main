@@ -22,11 +22,11 @@ include('../dbConnection.php');
    $lesson_name = $_REQUEST['lesson_name'];
    $lesson_desc = $_REQUEST['lesson_desc'];
    $course_id = $_REQUEST['course_id'];
-   $lesson_link = $_FILES['lesson_link']['name']; 
-   $lesson_link_temp = $_FILES['lesson_link']['tmp_name'];
-   $link_folder = '../lessonvid/'.$lesson_link; 
-   move_uploaded_file($lesson_link_temp, $link_folder);
-    $sql = "INSERT INTO lesson (lesson_name, lesson_desc, lesson_link, course_id) VALUES ('$lesson_name', '$lesson_desc','$link_folder', '$course_id')";
+   $lesson_link = $_REQUEST['lesson_link']; 
+  //  $lesson_link_temp = $_FILES['lesson_link']['tmp_name'];
+  //  $link_folder = '../lessonvid/'.$lesson_link; 
+  //  move_uploaded_file($lesson_link_temp, $link_folder);
+    $sql = "INSERT INTO lesson (lesson_name, lesson_desc, lesson_link, course_id) VALUES ('$lesson_name', '$lesson_desc','$lesson_link', '$course_id')";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Lesson Added Successfully </div>';
@@ -58,7 +58,7 @@ include('../dbConnection.php');
     </div>
     <div class="form-group">
       <label for="lesson_link">Lesson Video Link</label>
-      <input type="file" class="form-control-file" id="lesson_link" name="lesson_link">
+      <input type="text" class="form-control" id="lesson_link" name="lesson_link">
     </div>
     <div class="text-center">
       <button type="submit" class="btn btn-danger" id="lessonSubmitBtn" name="lessonSubmitBtn">Submit</button>

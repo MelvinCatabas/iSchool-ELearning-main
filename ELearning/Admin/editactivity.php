@@ -15,19 +15,20 @@ include('../dbConnection.php');
  // Update
  if(isset($_REQUEST['requpdate'])){
   // Checking for Empty Fields
-  if(($_REQUEST['lesson_id'] == "") || ($_REQUEST['lesson_name'] == "") || ($_REQUEST['lesson_desc'] == "") || ($_REQUEST['course_id'] == "")){
+  if(($_REQUEST['activity_id'] == "") || ($_REQUEST['activity_title'] == "") ||  ($_REQUEST['course_id'] == "")){
    // msg displayed if required field missing
    $msg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fileds </div>';
   } else {
     // Assigning User Values to Variable
-    $lid = $_REQUEST['lesson_id'];
-    $lname = $_REQUEST['lesson_name'];
-    $ldesc = $_REQUEST['lesson_desc'];
+    $activity_id = $_REQUEST['activity_id'];
+    $activity_title = $_REQUEST['activity_title'];
+    $activity_link = $_REQUEST['activity_link'];
+    // $llink = '../activitylink/'. $_FILES['activity_link']['name'];
     $cid = $_REQUEST['course_id'];
-  
-    $lesson_link = $_REQUEST['lesson_link'];
+    // $cname = $_REQUEST['course_name'];
     
-   $sql = "UPDATE lesson SET lesson_id = '$lid', lesson_name = '$lname', lesson_desc = '$ldesc', course_id='$cid', lesson_link='$lesson_link' WHERE lesson_id = '$lid'";
+    
+   $sql = "UPDATE activity SET activity_id = '$activity_id', activity_title = '$activity_title', activity_link = '$activity_link', course_id='$cid' WHERE activity_id = '$activity_id'";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Updated Successfully </div>';
@@ -39,43 +40,36 @@ include('../dbConnection.php');
   }
  ?>
 <div class="col-sm-6 mt-5  mx-3 jumbotron">
-  <h3 class="text-center">Update Lesson Details</h3>
+  <h3 class="text-center">Update Activity Details</h3>
   <?php
  if(isset($_REQUEST['view'])){
-  $sql = "SELECT * FROM lesson WHERE lesson_id = {$_REQUEST['id']}";
+  $sql = "SELECT * FROM activity WHERE activity_id = {$_REQUEST['id']}";
  $result = $conn->query($sql);
  $row = $result->fetch_assoc();
  }
  ?>
   <form action="" method="POST" enctype="multipart/form-data">
     <div class="form-group">
-      <label for="lesson_id">Lesson ID</label>
-      <input type="text" class="form-control" id="lesson_id" name="lesson_id" value="<?php if(isset($row['lesson_id'])) {echo $row['lesson_id']; }?>" readonly>
+      <label for="activity_id">Activity ID</label>
+      <input type="text" class="form-control" id="activity_id" name="activity_id" value="<?php if(isset($row['activity_id'])) {echo $row['activity_id']; }?>" readonly>
     </div>
     <div class="form-group">
-      <label for="lesson_name">Lesson Name</label>
-      <input type="text" class="form-control" id="lesson_name" name="lesson_name" value="<?php if(isset($row['lesson_name'])) {echo $row['lesson_name']; }?>">
+      <label for="activity_title">Activity Title</label>
+      <input type="text" class="form-control" id="activity_title" name="activity_title" value="<?php if(isset($row['activity_title'])) {echo $row['activity_title']; }?>">
     </div>
 
     <div class="form-group">
-      <label for="lesson_desc">Lesson Description</label>
-      <textarea class="form-control" id="lesson_desc" name="lesson_desc" row=2><?php if(isset($row['lesson_desc'])) {echo $row['lesson_desc']; }?></textarea>
+      <label for="activity_link">Activity Link</label>
+      <input type="text" class="form-control" id="activity_link" name="activity_link" value="<?php if(isset($row['activity_link'])) {echo $row['activity_link']; }?>">
     </div>
     <div class="form-group">
       <label for="course_id">Course ID</label>
       <input type="text" class="form-control" id="course_id" name="course_id" value="<?php if(isset($row['course_id'])) {echo $row['course_id']; }?>" readonly>
     </div>
-    <div class="form-group">
-      <label for="lesson_link">Lesson Link</label>
-      <div class="embed-responsive embed-responsive-16by9">
-       <iframe class="embed-responsive-item" src="<?php if(isset($row['lesson_link'])) {echo $row['lesson_link']; }?>" allowfullscreen></iframe>
-      </div>     
-      <input type="text" class="form-control" id="lesson_link" name="lesson_link" value="<?php if(isset($row['lesson_link'])) {echo $row['lesson_link']; }?>">
-    </div>
 
     <div class="text-center">
       <button type="submit" class="btn btn-danger" id="requpdate" name="requpdate">Update</button>
-      <a href="lessons.php" class="btn btn-secondary">Close</a>
+      <a href="activity.php" class="btn btn-secondary">Close</a>
     </div>
     <?php if(isset($msg)) {echo $msg; } ?>
   </form>
@@ -84,5 +78,5 @@ include('../dbConnection.php');
 </div>  <!-- div Conatiner-fluid close from header -->
 
 <?php
-include('./adminInclude/footer.php'); 
+  include('./adminInclude/footer.php');
 ?>

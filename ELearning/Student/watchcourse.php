@@ -88,18 +88,31 @@ if (isset($_SESSION['is_login'])) {
 
          </div>
          <div class="col-sm-8">
-            <video id="videoarea" src="" class="mt-5 w-85 ml-2" style="margin-left: 64px;" controls></video>
+            <iframe height="470" id="videoarea" src="" style="border-radius: 20px;" class="mt-5 w-85 ml-2" controls></iframe>
          </div>
       </div>
    </div>
 
-   <!-- <div class="container-fluid">
-      <div class="row">
-         <div class="col-sm-3 border-right">
-           
-         </div>
-      </div>
-   </div> -->
+   <!-- JavaScript -->
+   <script>
+      // Attach click event to each lesson item
+      document.addEventListener('DOMContentLoaded', () => {
+         const lessonItems = document.querySelectorAll('#playlist .nav-item');
+
+         lessonItems.forEach(item => {
+            item.addEventListener('click', function () {
+               const movieUrl = this.getAttribute('movieurl'); // Get movieurl attribute
+               const videoArea = document.getElementById('videoarea');
+
+               // Set the video src
+               videoArea.src = movieUrl;
+
+               // Optional: Auto-play the video
+               videoArea.play();
+            });
+         });
+      });
+   </script>
 
    <!-- Scripts -->
    <script type="text/javascript" src="../js/jquery.min.js"></script>
