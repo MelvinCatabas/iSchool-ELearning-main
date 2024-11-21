@@ -78,13 +78,14 @@ if ($resultCourse->num_rows > 0) {
             echo '</tbody>
             </table>';
 
-            // Dynamically change the link for adding lessons based on the course_id
-            echo '<div class="m-3">
-               <a class="btn btn-danger box" href="./addLesson.php?course_id=' . $coursesId . '"><i class="fas fa-plus fa-2x"></i></a>
-            </div>';
+            
         } else {
             echo "<p style='padding-left:16px; padding-top:16px'>No lessons available for this course (Course ID: $coursesId).</p>";
         }
+
+        echo '<div class="m-3">
+               <a class="btn btn-danger box" href="./addLesson.php?course_id=' . $coursesId . '"><i class="fas fa-plus fa-2x"></i></a>
+            </div>';
     }
 } else {
     echo "No courses found for this instructor.";
