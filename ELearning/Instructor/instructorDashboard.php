@@ -10,49 +10,72 @@ include('../dbConnection.php');
 if (isset($_SESSION['is_instructor_login'])) {
     $instructorEmail = $_SESSION['instructorLogEmail'];
 
-    $sql = "SELECT instructor_id FROM instructor WHERE instructor_email = '$instructorEmail'";
-    $result = $conn->query($sql);
-    if ($result->num_rows == 1) {
-      $row = $result->fetch_assoc();
-      $instructor_id = $row['instructor_id'];
+    $stmt = $conn->prepare("SELECT instructor_id FROM instructor WHERE instructor_email = ?");
+    $stmt->bind_param("s", $instructorEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $instructor_id = $row['instructor_id'];
     } else {
-      echo "<script>alert('Instructor not found.');</script>";
-      echo "<script> location.href='../index.php'; </script>";
+        echo "<script>alert('Instructor not found.');</script>";
+        echo "<script> location.href='../index.php'; </script>";
+        exit();
+    }
+    $stmt->close();
+
+  
+    $stmt = $conn->prepare("SELECT course_id FROM course WHERE instructor_id = ?");
+    $stmt->bind_param("i", $instructor_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $course_ids = []; 
+    while ($row = $result->fetch_assoc()) {
+        $course_ids[] = $row['course_id'];
+    }
+    $totalcourse = count($course_ids); 
+    $stmt->close();
+
+
+    $totalles = 0;
+    $totalact = 0;
+
+    if (!empty($course_ids)) {
+        foreach ($course_ids as $course_id) {
+       
+            $stmt = $conn->prepare("SELECT COUNT(*) AS total_lessons FROM lesson WHERE course_id = ?");
+            $stmt->bind_param("i", $course_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $totalles += $row['total_lessons'];
+            $stmt->close();
+
+         
+            $stmt = $conn->prepare("SELECT COUNT(*) AS total_activities FROM activity WHERE course_id = ?");
+            $stmt->bind_param("i", $course_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $totalact += $row['total_activities'];
+            $stmt->close();
+        }
     }
 
-
+    // Count total students
+    $stmt = $conn->prepare("SELECT COUNT(*) AS total_students FROM student");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $totalstu = $row['total_students'];
+    $stmt->close();
 
 } else {
     echo "<script> location.href='../index.php'; </script>";
+    exit();
 }
-$sql = "SELECT * FROM course WHERE instructor_id = $instructor_id";
-$result = $conn->query($sql);
-$totalcourse = $result->num_rows;
-
-$sql = "SELECT course_id FROM course WHERE instructor_id = '$instructor_id'";
-    $result = $conn->query($sql);
-    if ($result->num_rows == 1) {
-      $row = $result->fetch_assoc();
-      $course_id = $row['course_id'];
-    } else {
-      echo "<script>alert('course not found.');</script>";
-      echo "<script> location.href='../index.php'; </script>";
-    }
-
-$sql = "SELECT * FROM lesson WHERE course_id = '$course_id'";
-$result = $conn->query($sql);
-$totalles = $result->num_rows;
-
-$sql = "SELECT * FROM activity WHERE course_id = '$course_id'";
-$result = $conn->query($sql);
-$totalact = $result->num_rows;
-
-$sql = "SELECT * FROM student";
-$result = $conn->query($sql);
-$totalstu = $result->num_rows;
-
-
-
 ?>
 <div class="col-sm-9 mt-5">
 
@@ -92,7 +115,7 @@ $totalstu = $result->num_rows;
                                             <i class="ni ni-active-40 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                                         </div>
                                         <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                                            <?php echo $totalles; ?>
+                                            <?php echo$totalles; ?>
                                         </h5>
                                         <span class="text-white text-sm">Lesson</span>
                                     </div>
@@ -126,27 +149,7 @@ $totalstu = $result->num_rows;
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-12 mt-4 mt-md-0">
-                        <div class="card">
-                            <span class="mask bg-dark opacity-10 border-radius-lg"></span>
-                            <div class="card-body p-3 position-relative">
-                                <div class="row">
-                                    <div class="col-8 text-start">
-                                        <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
-                                            <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
-                                        </div>
-                                        <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                                        <?php echo $totalstu; ?>
-                                        </h5>
-                                        <span class="text-white text-sm">Students</span>
-                                    </div>
-                                    <div class="col-4">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              
                 </div>
             </div>
 
@@ -195,6 +198,20 @@ $totalstu = $result->num_rows;
                                     <div>
                                         <div class="progress progress-md">
                                             <div class="progress-bar bg-primary w-<?php echo $totalles; ?>" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                                <div class="w-100">
+                                    <div class="d-flex mb-2">
+                                        <span class="me-2 text-sm font-weight-bold text-dark">Activity</span>
+                                        <span class="ms-auto text-sm font-weight-bold"><?php echo $totalact; ?>%</span>
+                                    </div>
+                                    <div>
+                                        <div class="progress progress-md">
+                                            <div class="progress-bar bg-primary w-<?php echo $totalact; ?>" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -278,7 +295,7 @@ if (isset($_SESSION['is_instructor_login'])) {
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <div>
-                            <img src="../' . $row['instructor_img'] . '" alt="Instructor Image" class="rounded-circle" style="width: 35px; height: 35px;">
+                           
                         </div>
                         <div class="d-flex align-items-center">
                             <small class="font-weight-bold mr-2 text-muted">' . $row['instructor_fname'] . ' ' . $row['instructor_lname'] . '</small>

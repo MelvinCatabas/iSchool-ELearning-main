@@ -27,7 +27,7 @@ include('../dbConnection.php');
     $instructor_dob = $_REQUEST['instructor_dob'];
     $instructor_sex = $_REQUEST['instructor_sex'];
     $instructor_email = $_REQUEST['instructor_email'];
-    $instructor_pass = $_REQUEST['instructor_pass'];
+    
     $cimg = '../image/instimg/'. $_FILES['instructor_img']['name'];
     
    $sql = "UPDATE instructor SET instructor_id = '$instructor_id', instructor_fname = '$instructor_fname', instructor_lname = '$instructor_lname', instructor_dob = '$instructor_dob' , instructor_sex = '$instructor_sex' , instructor_email = '$instructor_email', instructor_img = '$cimg'   WHERE instructor_id = '$instructor_id'";
