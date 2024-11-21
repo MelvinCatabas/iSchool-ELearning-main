@@ -55,7 +55,8 @@ try {
     $admin_sql = "
     CREATE TABLE IF NOT EXISTS `admin` (
         `admin_id` INT(11) NOT NULL AUTO_INCREMENT,
-        `admin_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `admin_firstname` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `admin_last` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         `admin_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         `admin_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         PRIMARY KEY (`admin_id`)
@@ -69,10 +70,14 @@ try {
     $student_sql = "
     CREATE TABLE IF NOT EXISTS `student` (
         `stu_id` INT(11) NOT NULL AUTO_INCREMENT,
-        `stu_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_first_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_last_name` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_username` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_dob` DATE NOT NULL,
+        `stu_sex` VARCHAR(10) COLLATE utf8_bin NOT NULL,
         `stu_email` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         `stu_pass` VARCHAR(255) COLLATE utf8_bin NOT NULL,
-        `stu_occ` VARCHAR(255) COLLATE utf8_bin NOT NULL,
+        `stu_program` VARCHAR(255) COLLATE utf8_bin NOT NULL,
         `stu_img` TEXT COLLATE utf8_bin NOT NULL,
         PRIMARY KEY (`stu_id`)
     );
@@ -167,8 +172,27 @@ try {
 
     // Insert Student Record
     $student_insert = "
-    INSERT INTO `student` (`stu_name`, `stu_email`, `stu_pass`, `stu_occ`, `stu_img`) VALUES
-('John Doe', 'john@gmail.com', '1234', 'Software Developer', 'student_image.jpg'); 
+    INSERT INTO `student` (
+        `stu_first_name`, 
+        `stu_last_name`, 
+        `stu_username`, 
+        `stu_dob`, 
+        `stu_sex`, 
+        `stu_email`, 
+        `stu_pass`, 
+        `stu_program`, 
+        `stu_img`
+    ) VALUES (
+        'John', 
+        'Doe', 
+        'johndoe123', 
+        '1995-05-15', 
+        'Male', 
+        'john.doe@example.com', 
+        'password123', 
+        'Computer Science', 
+        'john_doe.jpg'
+    );
     ";
     if (!$conn->query($student_insert)) {
         throw new Exception("Error inserting student: " . $conn->error);
