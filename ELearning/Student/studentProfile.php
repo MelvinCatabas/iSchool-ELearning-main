@@ -26,7 +26,7 @@ include_once('../dbConnection.php');
 
  if(isset($_REQUEST['updateStuNameBtn'])){
   if(($_REQUEST['stuName'] == "")){
-   // msg displayed if required field missing
+
    $passmsg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fileds </div>';
   } else {
    $stuName = $_REQUEST["stuName"];
@@ -37,10 +37,25 @@ include_once('../dbConnection.php');
    move_uploaded_file($stu_image_temp, $img_folder);
    $sql = "UPDATE student SET stu_name = '$stuName', stu_occ = '$stuOcc', stu_img = '$img_folder' WHERE stu_email = '$stuEmail'";
    if($conn->query($sql) == TRUE){
-   // below msg display on form submit success
+
+    echo '<script>
+    Swal.fire({
+        title: "Success!",
+        text: "Update Successfully .",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false
+    }).then(function() {
+        Swal.close();
+    });
+</script>';
+
+
+$_SESSION['alert_shown'] = true;
+
    $passmsg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Updated Successfully </div>';
    } else {
-   // below msg display on form submit failed
+
    $passmsg = '<div class="alert alert-danger col-sm-6 ml-5 mt-2" role="alert"> Unable to Update </div>';
       }
     }
@@ -62,7 +77,7 @@ include_once('../dbConnection.php');
       <input type="text" class="form-control" id="stuName" name="stuName" value=" <?php if(isset($stuName)) {echo $stuName;} ?>">
     </div>
     <div class="form-group">
-      <!-- Student doesnt mean school student it also means learner -->
+    
       <label for="stuOcc">Occupation</label>
       <input type="text" class="form-control" id="stuOcc" name="stuOcc" value=" <?php if(isset($stuOcc)) {echo $stuOcc;} ?>">
     </div>
@@ -75,7 +90,7 @@ include_once('../dbConnection.php');
   </form>
  </div>
 
- </div> <!-- Close Row Div from header file -->
+ </div> 
 
  <?php
 include('./stuInclude/footer.php'); 
