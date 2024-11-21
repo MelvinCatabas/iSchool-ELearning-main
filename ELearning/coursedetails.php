@@ -7,6 +7,7 @@ if (!isset($_SESSION)) {
 }
 
 ?>
+<section style="height:98vh;">
 <div class="container-fluid bg-dark">
     <div class="row"></div>
 </div>
@@ -57,7 +58,7 @@ if (!isset($_SESSION)) {
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Course Name: ' . htmlspecialchars($row['course_name']) . '</h5>
+                            <h5 class="card-title pt-3">Course Name: ' . htmlspecialchars($row['course_name']) . '</h5>
                             <p class="card-text">Description: ' . htmlspecialchars($row['course_desc']) . '</p>
                             <form action="" method="post">
                                 <input type="hidden" name="course_id" value="' . htmlspecialchars($course_id) . '">
@@ -193,6 +194,7 @@ if (!isset($_SESSION)) {
         ?>         
     </div>
 </div>
+</section>
 
 <?php
 // Footer Include from mainInclude

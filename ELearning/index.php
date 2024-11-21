@@ -153,7 +153,7 @@ if (isset($_SESSION['is_login'])) {
 
     // Button for viewing all courses
     echo '<div class="text-center m-4">
-            <a class="btn btn-sm btns" href="index.php?view_all=' . (isset($_GET['view_all']) && $_GET['view_all'] == 'true' ? 'false' : 'true') . '">' . $buttonText . '</a>
+            <a class="btn-sm btns" style="text-decoration:none; padding: 8px; border-radius:10px;" href="index.php?view_all=' . (isset($_GET['view_all']) && $_GET['view_all'] == 'true' ? 'false' : 'true') . '">' . $buttonText . '</a>
           </div>';
 }
 ?>
