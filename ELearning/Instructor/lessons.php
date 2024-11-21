@@ -93,7 +93,7 @@ if ($resultCourse->num_rows > 0) {
 
 if(isset($_POST['delete'])){
   $instructorPassword = $_POST['instructorPassword'];
-  $lessonId = $_POST['lessonId'];  // Get lesson_id from the form
+  $lessonId = $_POST['lessonId'];  
 
   if(isset($instructorEmail)){
     $sql = "SELECT instructor_pass FROM instructor WHERE instructor_email = '$instructorEmail'";
@@ -104,8 +104,8 @@ if(isset($_POST['delete'])){
 
       if($instructorPassword === $instructor['instructor_pass']){
     
-        // Delete lesson based on lesson_id
-        $sql = "DELETE FROM lesson WHERE lesson_id = $lessonId";  // Changed to delete by lesson_id
+       
+        $sql = "DELETE FROM lesson WHERE lesson_id = $lessonId"; 
 
         if($conn->query($sql) === TRUE){
           echo "<script>
@@ -160,7 +160,7 @@ if(isset($_POST['delete'])){
 }
 ?>
 
-<!-- Modal for Deletion Confirmation -->
+
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -172,7 +172,7 @@ if(isset($_POST['delete'])){
       <form method="POST" action="">
       <p>Enter your password to confirm the deletion:</p>
           <input type="password" name="instructorPassword" class="form-control" placeholder="Instructor Password" required />
-          <input type="hidden" name="lessonId" id="lessonId" /> <!-- hidden input to store lessonId -->
+          <input type="hidden" name="lessonId" id="lessonId" /> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
