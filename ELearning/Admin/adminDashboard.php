@@ -240,7 +240,7 @@ $totalcourse = $result->num_rows;
 
 
                 <?php
-                $sql = "SELECT * FROM enrollees";
+                $sql = "SELECT * FROM enrollees LIMIT 10";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     echo '<h6 class="mx-3 pt-3">Enrolles</h6>
@@ -250,8 +250,8 @@ $totalcourse = $result->num_rows;
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Student ID</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course ID</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Student ID</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course ID</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Enrollment Date</th>
                     </tr>
                   </thead>
@@ -260,18 +260,18 @@ $totalcourse = $result->num_rows;
                     while ($row = $result->fetch_assoc()) {
                         echo '  <tr>';
                         echo '<td>
-                        <div class="d-flex px-2 py-1">
+                        <div class="px-2 py-1">
                           <div>
                             
                           </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">' . $row["course_id"] . '</h6>
+                          <div class="flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm text-center">' . $row["course_id"] . '</h6>
                           </div>
                         </div>
                       </td>';
 
 
-                        echo '<td>' . $row["stu_id"] . '</td>';
+                        echo '<td class="text-center">' . $row["stu_id"] . '</td>';
 
 
                         echo '<td class="align-middle text-center text-sm">

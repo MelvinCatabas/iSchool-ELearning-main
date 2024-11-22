@@ -52,10 +52,10 @@ if ($resultCourse->num_rows > 0) {
               <table class="table align-items-center mb-0">
                 <thead>
                   <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lesson ID</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Lesson Name</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course ID</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lesson ID</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Lesson Name</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course ID</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   </tr>
                 </thead>
                 <tbody>';
@@ -63,9 +63,9 @@ if ($resultCourse->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
                 echo '<th scope="row" style="text-align:center;">' . $row["lesson_id"] . '</th>';
-                echo '<td>' . $row["lesson_name"] . '</td>';
-                echo '<td>' . $row["course_id"] . '</td>';
-                echo '<td>
+                echo '<td class="text-center">' . $row["lesson_name"] . '</td>';
+                echo '<td class="text-center">' . $row["course_id"] . '</td>';
+                echo '<td class="text-center">
                         <form action="editlesson.php" method="POST" class="d-inline">
                           <input type="hidden" name="id" value="' . $row["lesson_id"] . '">
                           <button type="submit" class="btn btn-info mr-3" name="view" value="View"><i class="fas fa-pen"></i></button>

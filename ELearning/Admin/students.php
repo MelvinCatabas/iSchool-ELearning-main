@@ -141,13 +141,13 @@ if (isset($_POST['delete'])) {
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Student ID</th>
                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">First Name</th>
-               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Last Name</th>
-               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
-               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dob</th>
-               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sex</th>
-               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Program</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Last Name</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dob</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sex</th>
+                       <th class="text-centertext-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Program</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   </tr>
                 </thead>
                 <tbody>';
@@ -155,7 +155,7 @@ if (isset($_POST['delete'])) {
           while ($row = $result->fetch_assoc()) {
             echo '  <tr>';
             echo '<td>
-            <div class="d-flex px-2 py-1">
+            <div class="px-2 py-1">
               <div>
               </div>
               <div class="d-flex flex-column justify-content-center">
@@ -167,8 +167,8 @@ if (isset($_POST['delete'])) {
           echo '<td>' . $row["stu_last_name"] . '</td>';
           echo '<td>' . $row["stu_username"] . '</td>';
           echo '<td>' . $row["stu_dob"] . '</td>';
-          echo '<td>' . $row["stu_sex"] . '</td>';
-          echo '<td>' . $row["stu_program"] . '</td>';
+          echo '<td >' . $row["stu_sex"] . '</td>';
+          echo '<td class="text-center">' . $row["stu_program"] . '</td>';
             echo '<td class="align-middle">' . $row["stu_email"] . '</td>';
             echo '<td>
               <form action="editstudent.php" method="POST" class="d-inline"> 

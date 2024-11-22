@@ -176,8 +176,8 @@ if (isset($_POST['delete'])) {
                         <thead>
                           <tr>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor ID</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor First Name</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor Last Name</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor First Name</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor Last Name</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Instructor DOB</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Instructor SEX</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor Email</th>
@@ -189,10 +189,10 @@ if (isset($_POST['delete'])) {
             while($row = $result->fetch_assoc()){
               echo '<tr>';
               echo '<td class="text-center">'.$row["instructor_id"].'</td>';
-              echo '<td>'.$row["instructor_fname"].'</td>';
-              echo '<td>'.$row["instructor_lname"].'</td>';
+              echo '<td class="text-center">'.$row["instructor_fname"].'</td>';
+              echo '<td class="text-center">'.$row["instructor_lname"].'</td>';
               echo '<td>'.$row["instructor_dob"].'</td>';
-              echo '<td>'.$row["instructor_sex"].'</td>';
+              echo '<td class="text-center">'.$row["instructor_sex"].'</td>';
               echo '<td>'.$row["instructor_email"].'</td>';
               echo '<td>
                       <form action="editinstructor.php" method="POST" class="d-inline">

@@ -121,9 +121,9 @@ if(isset($_POST['delete'])){
                       <table class="table align-items-center mb-0">
                         <thead>
                           <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course ID</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course Name</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course ID</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Course Name</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                           </tr>
                         </thead>
                         <tbody>';
@@ -131,8 +131,8 @@ if(isset($_POST['delete'])){
             while($row = $result->fetch_assoc()){
               echo '<tr>';
               echo '<td class="text-center">'.$row["course_id"].'</td>';
-              echo '<td>'.$row["course_name"].'</td>';
-              echo '<td>
+              echo '<td class="text-center">'.$row["course_name"].'</td>';
+              echo '<td class="text-center">
                       <form action="editcourse.php" method="POST" class="d-inline">
                         <input type="hidden" name="id" value="'.$row["course_id"].'">
                         <button type="submit" class="btn btn-info mr-3" name="view" value="View">
