@@ -15,18 +15,23 @@ include('../dbConnection.php');
  // Update
  if(isset($_REQUEST['requpdate'])){
   // Checking for Empty Fields
-  if(($_REQUEST['stu_id'] == "") || ($_REQUEST['stu_name'] == "") || ($_REQUEST['stu_email'] == "") || ($_REQUEST['stu_pass'] == "") || ($_REQUEST['stu_occ'] == "")){
+  if(($_REQUEST['stu_id'] == "") || ($_REQUEST['stu_first_name'] == "") || ($_REQUEST['stu_last_name'] == "") || ($_REQUEST['stu_username'] == "") || ($_REQUEST['stu_dob'] == "") || ($_REQUEST['stu_sex'] == "") || ($_REQUEST['stu_program'] == "")){
    // msg displayed if required field missing
    $msg = '<div class="alert alert-warning col-sm-6 ml-5 mt-2" role="alert"> Fill All Fileds </div>';
   } else {
     // Assigning User Values to Variable
     $sid = $_REQUEST['stu_id'];
-    $sname = $_REQUEST['stu_name'];
-    $semail = $_REQUEST['stu_email'];
-    $spass = $_REQUEST['stu_pass'];
-    $socc = $_REQUEST['stu_occ'];
+    $stfname = $_REQUEST['stu_first_name'];
+    $stlname = $_REQUEST['stu_last_name'];
+    $stuser = $_REQUEST['stu_username'];
+    $stdob = $_REQUEST['stu_dob'];
+    $stex = $_REQUEST['stu_sex'];
+    $stprogram = $_REQUEST['stu_program'];
+    // $semail = $_REQUEST['stu_email'];
+    // $spass = $_REQUEST['stu_pass'];
+    // $socc = $_REQUEST['stu_occ'];
     
-   $sql = "UPDATE student SET stu_id = '$sid', stu_name = '$sname', stu_email = '$semail', stu_pass='$spass', stu_occ='$socc' WHERE stu_id = '$sid'";
+   $sql = "UPDATE student SET stu_id = '$sid', stu_first_name = '$stfname',  stu_last_name = '$stlname',  stu_username = '$stuser',  stu_dob = '$stdob',  stu_sex = '$stex',  stu_program = '$stprogram' WHERE stu_id = '$sid'";
     if($conn->query($sql) == TRUE){
      // below msg display on form submit success
      $msg = '<div class="alert alert-success col-sm-6 ml-5 mt-2" role="alert"> Updated Successfully </div>';
@@ -52,23 +57,41 @@ include('../dbConnection.php');
       <input type="text" class="form-control" id="stu_id" name="stu_id" value="<?php if(isset($row['stu_id'])) {echo $row['stu_id']; }?>"readonly>
     </div>
     <div class="form-group">
-      <label for="stu_name">Name</label>
-      <input type="text" class="form-control" id="stu_name" name="stu_name" value="<?php if(isset($row['stu_name'])) {echo $row['stu_name']; }?>">
+      <label for="stu_first_name">First Name</label>
+      <input type="text" class="form-control" id="stu_first_name" name="stu_first_name" value="<?php if(isset($row['stu_first_name'])) {echo $row['stu_first_name']; }?>">
+    </div>
+    <div class="form-group">
+      <label for="stu_last_name">Last Name</label>
+      <input type="text" class="form-control" id="stu_last_name" name="stu_last_name" value="<?php if(isset($row['stu_last_name'])) {echo $row['stu_last_name']; }?>">
+    </div>
+    <div class="form-group">
+      <label for="stu_username">Username</label>
+      <input type="text" class="form-control" id="stu_username" name="stu_username" value="<?php if(isset($row['stu_username'])) {echo $row['stu_username']; }?>">
+    </div>
+    <div class="form-group">
+      <label for="stu_dob">Date of Birth</label>
+      <input type="date" class="form-control" id="stu_dob" name="stu_dob" value="<?php if(isset($row['stu_dob'])) {echo $row['stu_dob']; }?>">
     </div>
 
-    <div class="form-group">
-      <label for="stu_email">Email</label>
-      <input type="text" class="form-control" id="stu_email" name="stu_email" value="<?php if(isset($row['stu_email'])) {echo $row['stu_email']; }?>">
-    </div>
+    <div class="form-outline mb-4">
+            <label for="stuSex">Sex</label>
+            <select class="form-control" id="stu_sex" name="stu_sex">
+                <option value="Male" <?php if(isset($row['stu_sex'])) {echo $row['stu_sex']; } echo 'selected'; ?>>Male</option>
+                <option value="Female" <?php if(isset($row['stu_sex'])) {echo $row['stu_sex']; } echo 'selected'; ?>>Female</option>
+                <option value="Other" <?php if(isset($row['stu_sex'])) {echo $row['stu_sex']; } echo 'selected'; ?>>Other</option>
+            </select>
+        </div>
 
     <div class="form-group">
+      <label for="stu_program">Program</label>
+      <input type="text" class="form-control" id="stu_program" name="stu_program" value="<?php if(isset($row['stu_program'])) {echo $row['stu_program']; }?>">
+    </div>
+
+    <!-- <div class="form-group">
       <label for="stu_pass">Password</label>
       <input type="text" class="form-control" id="stu_pass" name="stu_pass" value="<?php if(isset($row['stu_pass'])) {echo $row['stu_pass']; }?>">
-    </div>
-    <div class="form-group">
-      <label for="stu_occ">Occupation</label>
-      <input type="text" class="form-control" id="stu_occ" name="stu_occ" value="<?php if(isset($row['stu_occ'])) {echo $row['stu_occ']; }?>">
-    </div>
+    </div> -->
+
     <div class="text-center">
       <button type="submit" class="btn btn-danger" id="requpdate" name="requpdate">Update</button>
       <a href="students.php" class="btn btn-secondary">Close</a>

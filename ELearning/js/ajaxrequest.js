@@ -1,6 +1,6 @@
 $(document).ready(function () {
-  // Ajax Call for Already Exists Email Verification
-  $("#stuemail").on("keypress blur", function () {
+  // Email Validation with Ajax
+  $("#stuemail").on("keyup blur", function () {
     var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
     var stuemail = $("#stuemail").val();
     $.ajax({
@@ -11,118 +11,125 @@ $(document).ready(function () {
         stuemail: stuemail,
       },
       success: function (data) {
-        console.log(data);
         if (data != 0) {
-          $("#statusMsg2").html(
-            '<small style="color:red;"> Email ID Already Registered ! </small>'
+          $("#statusMsg6").html(
+            '<small style="color:red;">Email ID Already Registered!</small>'
           );
           $("#signup").attr("disabled", true);
         } else if (data == 0 && reg.test(stuemail)) {
-          $("#statusMsg2").html(
-            '<small style="color:green;"> There you go ! </small>'
+          $("#statusMsg6").html(
+            '<small style="color:green;">Email is available!</small>'
           );
           $("#signup").attr("disabled", false);
         } else if (!reg.test(stuemail)) {
-          $("#statusMsg2").html(
-            '<small style="color:red;"> Please Enter Valid Email e.g. example@mail.com </small>'
+          $("#statusMsg6").html(
+            '<small style="color:red;">Invalid Email Format (e.g., example@mail.com)</small>'
           );
-          $("#signup").attr("disabled", false);
+          $("#signup").attr("disabled", true);
         }
-        if (stuemail == "") {
-          $("#statusMsg2").html(
-            '<small style="color:red;"> Please Enter Email ! </small>'
+        if (stuemail.trim() == "") {
+          $("#statusMsg6").html(
+            '<small style="color:red;">Please Enter an Email!</small>'
           );
+          $("#signup").attr("disabled", true);
         }
       },
     });
   });
-  // Checking name on keypress
-  $("#stuname").keypress(function () {
-    var stuname = $("#stuname").val();
-    if (stuname !== "") {
-      $("#statusMsg1").html(" ");
-    }
+
+  // Clear Error Message on Keypress
+  $("input").on("keypress", function () {
+    var fieldId = $(this).attr("id");
+    $(`#statusMsg${fieldId}`).html(" ");
   });
-  // Checking Password on keypress
-  $("#stupass").keypress(function () {
-    var stupass = $("#stupass").val();
-    if (stupass !== "") {
-      $("#statusMsg3").html(" ");
+
+  // Password Confirmation Validation
+  $("#stupass, #stupass-confirm").on("keyup blur", function () {
+    var password = $("#stupass").val();
+    var confirmPassword = $("#stupass-confirm").val();
+    if (password !== confirmPassword) {
+      $("#statusMsg8").html(
+        '<small style="color:red;">Passwords do not match!</small>'
+      );
+      $("#signup").attr("disabled", true);
+    } else {
+      $("#statusMsg8").html('<small style="color:green;">Passwords match.</small>');
+      $("#signup").attr("disabled", false);
     }
   });
 });
 
 // Ajax Call for Adding New Student
+// Add Student Function
 function addStu() {
-  var reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-  var stuname = $("#stuname").val();
-  var stuemail = $("#stuemail").val();
-  var stupass = $("#stupass").val();
-  // checking fields on form submission
-  if (stuname.trim() == "") {
-    $("#statusMsg1").html(
-      '<small style="color:red;"> Please Enter Name ! </small>'
-    );
-    $("#stuname").focus();
-    return false;
-  } else if (stuemail.trim() == "") {
-    $("#statusMsg2").html(
-      '<small style="color:red;"> Please Enter Email ! </small>'
-    );
-    $("#stuemail").focus();
-    return false;
-  } else if (stuemail.trim() != "" && !reg.test(stuemail)) {
-    $("#statusMsg2").html(
-      '<small style="color:red;"> Please Enter Valid Email e.g. example@mail.com </small>'
-    );
-    $("#stuemail").focus();
-    return false;
-  } else if (stupass.trim() == "") {
-    $("#statusMsg3").html(
-      '<small style="color:red;"> Please Enter Password ! </small>'
-    );
-    $("#stupass").focus();
-    return false;
-  } else {
-    $.ajax({
-      url: "Student/addstudent.php",
-      type: "post",
-      data: {
-        // assigned stusignup value just to check all iz well
-        stusignup: "stusignup",
-        stuname: stuname,
-        stuemail: stuemail,
-        stupass: stupass,
-      },
-      success: function (data) {
-        console.log(data);
-        if (data == "OK") {
-          $("#successMsg").html(
-            '<span class="alert alert-success"> Registration Successful ! </span>'
-          );
-          // making field empty after signup
-          clearStuRegField();
-        } else if (data == "Failed") {
-          $("#successMsg").html(
-            '<span class="alert alert-danger"> Unable to Register ! </span>'
-          );
-        }
-      },
-    });
-  }
+  const reg = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+  const stufname = $("#stufname").val();
+  const stulname = $("#stulname").val();
+  const stuuser = $("#stuuser").val();
+  const studob = $("#studob").val();
+  const stusex = $("#stusex").val();
+  const stuemail = $("#stuemail").val();
+  const stupass = $("#stupass").val();
+
+  // Validation
+  if (!stufname.trim()) return showError("statusMsg1", "Please enter First Name!");
+  if (!stulname.trim()) return showError("statusMsg2", "Please enter Last Name!");
+  if (!stuuser.trim()) return showError("statusMsg3", "Please enter Username!");
+  if (!studob.trim()) return showError("statusMsg4", "Please enter Date of Birth!");
+  if (!stusex.trim()) return showError("statusMsg5", "Please select your sex!");
+  if (!stuemail.trim() || !reg.test(stuemail)) return showError("statusMsg6", "Please enter a valid Email!");
+  if (!stupass.trim()) return showError("statusMsg7", "Please enter Password!");
+
+  // AJAX Submission
+  $.ajax({
+    url: "Student/addstudent.php",
+    type: "post",
+    data: {
+      stusignup: "stusignup",
+      stufname,
+      stulname,
+      stuuser,
+      studob,
+      stusex,
+      stuemail,
+      stupass,
+    },
+    beforeSend: function () {
+      $("#signup").prop("disabled", true);
+    },
+    success: function (data) {
+      console.log(data);
+      if (data == "OK") {
+        $("#successMsg").html('<span class="alert alert-success"> Registration Successful!</span>');
+        clearStuRegField();
+      } else {
+        $("#successMsg").html('<span class="alert alert-danger"> Unable to Register!</span>');
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error:", error);
+      alert("An error occurred while processing your request. Please try again.");
+    },
+    complete: function () {
+      $("#signup.php").prop("disabled", false);
+    },
+  });
+}
+
+// Helper Function to Show Error Messages
+function showError(elementId, message) {
+  $(`#${elementId}`).html(`<small style="color:red;">${message}</small>`);
 }
 
 // Empty All Fields and Status Msg
 function clearStuRegField() {
   $("#stuRegForm").trigger("reset");
-  $("#statusMsg1").html(" ");
-  $("#statusMsg2").html(" ");
-  $("#statusMsg3").html(" ");
+  $("small").html(" ");
 }
 
 function clearAllStuReg() {
   $("#successMsg").html(" ");
-  clearStuRegField();
+  clearStuRegField(); 
 }
 
 // Ajax Call for Student Login Verification

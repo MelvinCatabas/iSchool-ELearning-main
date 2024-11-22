@@ -17,11 +17,15 @@ if(isset($_POST['stuemail']) && isset($_POST['checkemail'])){
   }
  
   // Inserting or Adding New Student
-  if(isset($_POST['stusignup']) && isset($_POST['stuname']) && isset($_POST['stuemail']) && isset($_POST['stupass'])){
-    $stuname = $_POST['stuname'];
+  if(isset($_POST['stusignup']) && isset($_POST['stufname']) && isset($_POST['stulname']) && isset($_POST['stuuser']) && isset($_POST['studob']) && isset($_POST['stusex']) && isset($_POST['stuemail']) && isset($_POST['stupass'])){
+    $stufname = $_POST['stufname'];
+    $stulname = $_POST['stulname'];
+    $stuuser = $_POST['stuuser'];
+    $studob = $_POST['studob'];
+    $stusex = $_POST['stusex'];
     $stuemail = $_POST['stuemail'];
     $stupass = $_POST['stupass'];
-    $sql = "INSERT INTO student(stu_name, stu_email, stu_pass) VALUES ('$stuname', '$stuemail', '$stupass')";
+    $sql = "INSERT INTO student(stu_first_name, stu_last_name, stu_username, stu_dob, stu_sex, stu_email, stu_pass) VALUES ('$stufname', '$stulname', '$stuuser', '$studob', '$stusex', '$stuemail', '$stupass')";
     if($conn->query($sql) == TRUE){
       echo json_encode("OK");
     } else {

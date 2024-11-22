@@ -53,21 +53,7 @@ if (isset($_SESSION['is_instructor_login'])) {
              </tr>
            </thead>
            <tbody>';
-          //   while($row = $result->fetch_assoc()){
-          //     echo '<tr>';
-          //     echo '<th scope="row">'.$row["stu_id"].'</th>';
-          //     echo '<td>'. $row["stu_name"].'</td>';
-          //     echo '<td>'.$row["stu_email"].'</td>';
-          //     echo '<td><form action="editstudent.php" method="POST" class="d-inline"> <input type="hidden" name="id" value='. $row["stu_id"] .'><button type="submit" class="btn btn-info mr-3" name="view" value="View"><i class="fas fa-pen"></i></button></form>  
-          //     <form action="" method="POST" class="d-inline"><input type="hidden" name="id" value='. $row["stu_id"] .'><button type="submit" class="btn btn-secondary" name="delete" value="Delete"><i class="far fa-trash-alt"></i></button></form></td>
-          //    </tr>';
-          //   }
 
-          //   echo '</tbody>
-          //   </table>';
-          // } else {
-          //   echo "0 Result";
-          // }
 
           while ($row = $result->fetch_assoc()) {
             echo '  <tr>';

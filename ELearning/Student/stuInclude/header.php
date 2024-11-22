@@ -15,10 +15,15 @@ include_once('../dbConnection.php');
   $row = $result->fetch_assoc();
   $stu_img = $row['stu_img'];
 
-  $sql = "SELECT stu_name FROM student WHERE stu_email = '$stuLogEmail'";
+  $sql = "SELECT stu_first_name FROM student WHERE stu_email = '$stuLogEmail'";
   $result = $conn->query($sql);
   $row = $result->fetch_assoc();
-  $stu_name = $row['stu_name'];
+  $stu_Fname = $row['stu_first_name'];
+
+  $sql = "SELECT stu_last_name FROM student WHERE stu_email = '$stuLogEmail'";
+  $result = $conn->query($sql);
+  $row = $result->fetch_assoc();
+  $stu_Lname = $row['stu_last_name'];
 
  }
 ?>
@@ -58,7 +63,7 @@ include_once('../dbConnection.php');
        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
        <a class="navbar-brand m-0" href="\iSchool-ELearning-main\ELearning\index.php" style="height: 400px; width:400px;">
          <img  src="<?php echo $stu_img ?>"  class="navbar-brand-img h-100" style="border-radius: 150px; height: 200px;" alt="main_logo">
-         <span class="ms-1 font-weight-bold"><?php echo $stu_name ?></span>
+         <span class="ms-1 font-weight-bold"><?php echo $stu_Fname. ' ' . $stu_Lname?></span>
        </a>
      </div>
      <hr class="horizontal dark mt-0">

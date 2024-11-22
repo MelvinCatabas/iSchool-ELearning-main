@@ -25,7 +25,6 @@ include('../dbConnection.php');
 
 if (isset($_SESSION['is_admin_login'])) {
   $adminEmail = $_SESSION['adminLogEmail'];
-
 } else {
   echo "<script> location.href='../index.php'; </script>";
 }
@@ -35,17 +34,17 @@ if (isset($_POST['delete'])) {
   $studentId = $_POST['studentId'];
 
   if (isset($adminEmail)) {
-      $sql = "SELECT admin_pass FROM admin WHERE admin_email = '$adminEmail'";
-      $result = $conn->query($sql);
+    $sql = "SELECT admin_pass FROM admin WHERE admin_email = '$adminEmail'";
+    $result = $conn->query($sql);
 
-      if ($result->num_rows > 0) {
-          $admin = $result->fetch_assoc();
+    if ($result->num_rows > 0) {
+      $admin = $result->fetch_assoc();
 
-          if ($adminPassword === $admin['admin_pass']) {
-              $sql = "DELETE FROM enrollees WHERE stu_id = $studentId;";
-              $sql .= "DELETE FROM student WHERE stu_id = $studentId;";
-              if ($conn->multi_query($sql) === TRUE) {
-                echo "<script>
+      if ($adminPassword === $admin['admin_pass']) {
+        $sql = "DELETE FROM enrollees WHERE stu_id = $studentId;";
+        $sql .= "DELETE FROM student WHERE stu_id = $studentId;";
+        if ($conn->multi_query($sql) === TRUE) {
+          echo "<script>
                     Swal.fire({
                         icon: 'success',
                         title: 'Student Deleted',
@@ -56,36 +55,35 @@ if (isset($_POST['delete'])) {
                         window.location.href = '?deleted=true'; // Redirect with a flag
                     });
                 </script>";
-            }
-             else {
-                  echo "<script>
+        } else {
+          echo "<script>
                       Swal.fire({
                           icon: 'error',
                           title: 'Error',
                           text: 'Unable to delete student. Please try again.',
                       });
                   </script>";
-              }
-          } else {
-              echo "<script>
+        }
+      } else {
+        echo "<script>
                   Swal.fire({
                       icon: 'error',
                       title: 'Incorrect Password',
                       text: 'Please enter the correct admin password.',
                   });
               </script>";
-          }
-      } else {
-          echo "<script>
+      }
+    } else {
+      echo "<script>
               Swal.fire({
                   icon: 'error',
                   title: 'Admin Not Found',
                   text: 'No admin found with the provided email.',
               });
           </script>";
-      }
+    }
   } else {
-      echo "<script>
+    echo "<script>
           Swal.fire({
               icon: 'error',
               title: 'Session Error',
@@ -125,7 +123,7 @@ if (isset($_POST['delete'])) {
 <div class="col-sm-9 mt-5" style="margin-left:50px;">
   <!--Table-->
   <div class="row my-4">
-    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+    <div class="col-lg-8 col-md-6 mb-md-0 mb-4" style="width:1100px;">
       <div class="card">
         <div class="card-header pb-0">
           <div class="row">
@@ -142,7 +140,12 @@ if (isset($_POST['delete'])) {
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Student ID</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">First Name</th>
+               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Last Name</th>
+               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
+               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Dob</th>
+               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Sex</th>
+               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Program</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                   </tr>
@@ -160,7 +163,12 @@ if (isset($_POST['delete'])) {
               </div>
             </div>
           </td>';
-            echo '<td>' . $row["stu_name"] . '</td>';
+          echo '<td>' . $row["stu_first_name"] . '</td>';
+          echo '<td>' . $row["stu_last_name"] . '</td>';
+          echo '<td>' . $row["stu_username"] . '</td>';
+          echo '<td>' . $row["stu_dob"] . '</td>';
+          echo '<td>' . $row["stu_sex"] . '</td>';
+          echo '<td>' . $row["stu_program"] . '</td>';
             echo '<td class="align-middle">' . $row["stu_email"] . '</td>';
             echo '<td>
               <form action="editstudent.php" method="POST" class="d-inline"> 
@@ -186,27 +194,26 @@ if (isset($_POST['delete'])) {
         }
         ?>
 
-    <div class="mt-3">
-      <a class="btn btn-danger box" href="addnewstudent.php"><i class="fas fa-plus fa-2x"></i></a>
-    </div>
+        <div class="mt-3">
+          <a class="btn btn-danger box" href="addnewstudent.php"><i class="fas fa-plus fa-2x"></i></a>
+        </div>
 
       </div>
     </div> <!-- div Row close from header -->
   </div> <!-- div Container-fluid close from header -->
 
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal')); // Bootstrap modal instance
+    document.addEventListener('DOMContentLoaded', () => {
+      const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal')); // Bootstrap modal instance
 
-  document.querySelectorAll('.delete-btn').forEach(button => {
-      button.addEventListener('click', function () {
+      document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function () {
           const studentId = this.getAttribute('data-id'); // Get student ID from data-id attribute
           document.getElementById('studentId').value = studentId; // Set the hidden input in the modal
           deleteModal.show(); // Show the modal
+        });
       });
-  });
-});
-
+    });
   </script>
 
   <?php
