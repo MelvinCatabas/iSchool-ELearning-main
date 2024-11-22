@@ -79,6 +79,17 @@
     if (password !== confirmPassword) {
       alert("Passwords do not match. Please try again.");
     } else {
+
+      Swal.fire({
+                title: "Success!",
+                text: "You have successfully Sign in.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            }).then(function() {
+                Swal.close();
+            });
+
       addStu();
     }
   });
