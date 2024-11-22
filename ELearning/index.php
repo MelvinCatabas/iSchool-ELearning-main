@@ -74,7 +74,7 @@ if (isset($_SESSION['is_login'])) {
               <div class="d-flex flex-column h-100">
                 <p class="mb-1 pt-2 text-bold">NEUST E-Learning</p>
                 <h5 class="font-weight-bolder">E Learning</h5>
-                <p class="mb-5">From colors, cards, typography to complex elements, you will find the full documentation.</p>
+                <p class="mb-5">Read more about NEUST</p>
                 <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://neust.edu.ph/" target="_blank">
                   Read More
                   <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
@@ -83,7 +83,7 @@ if (isset($_SESSION['is_login'])) {
             </div>
             <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
               <div class="border-radius-lg h-100" style="background-color:#252525; border-radius: 10px;">
-        
+
                 <div class="position-relative d-flex align-items-center justify-content-center h-100">
                
                 </div>
@@ -99,7 +99,7 @@ if (isset($_SESSION['is_login'])) {
             <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-color: #252525; border-radius: 10px;">
               <span class="mask bg-gradient-dark"></span>
               <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
-                <h5 class="text-white font-weight-bolder mb-4 pt-2">Work with the rockets</h5>
+                <h5 class="text-white font-weight-bolder mb-4 pt-2">NEUST</h5>
                 <p class="text-white">Wealth creation is an evolutionarily recent positive-sum game. It is all about who take the opportunity first.</p>
                 <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="blog.html" target="_blank">
                   Read More

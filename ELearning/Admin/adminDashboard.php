@@ -149,7 +149,7 @@ $totalcourse = $result->num_rows;
         <div class="col-lg-6 col-12 mt-4 mt-lg-0">
             <div class="card shadow h-100">
                 <div class="card-header pb-0 p-3">
-                    <h6 class="mb-0">Reviews</h6>
+                    <h6 class="mb-0"></h6>
                 </div>
                 <div class="card-body pb-0 p-3">
                     <ul class="list-group">
@@ -157,7 +157,7 @@ $totalcourse = $result->num_rows;
                             <div class="w-100">
                                 <div class="d-flex mb-2">
                                     <span class="me-2 text-sm font-weight-bold text-dark">Student</span>
-                                    <span class="ms-auto text-sm font-weight-bold"><?php echo $totalstu; ?>%</span>
+                                    <span class="ms-auto text-sm font-weight-bold"><?php echo $totalstu; ?></span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
@@ -170,7 +170,7 @@ $totalcourse = $result->num_rows;
                             <div class="w-100">
                                 <div class="d-flex mb-2">
                                     <span class="me-2 text-sm font-weight-bold text-dark">Course</span>
-                                    <span class="ms-auto text-sm font-weight-bold"> <?php echo $totalcourse; ?>%</span>
+                                    <span class="ms-auto text-sm font-weight-bold"> <?php echo $totalcourse; ?></span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
@@ -183,7 +183,7 @@ $totalcourse = $result->num_rows;
                             <div class="w-100">
                                 <div class="d-flex mb-2">
                                     <span class="me-2 text-sm font-weight-bold text-dark">Lesson</span>
-                                    <span class="ms-auto text-sm font-weight-bold"> <?php echo $totallesson; ?>%</span>
+                                    <span class="ms-auto text-sm font-weight-bold"> <?php echo $totallesson; ?></span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">
@@ -197,7 +197,7 @@ $totalcourse = $result->num_rows;
                             <div class="w-100">
                                 <div class="d-flex mb-2">
                                     <span class="me-2 text-sm font-weight-bold text-dark">Activity</span>
-                                    <span class="ms-auto text-sm font-weight-bold"><?php echo $totalact; ?>%</span>
+                                    <span class="ms-auto text-sm font-weight-bold"><?php echo $totalact; ?></span>
                                 </div>
                                 <div>
                                     <div class="progress progress-md">

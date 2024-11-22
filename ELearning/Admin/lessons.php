@@ -38,7 +38,7 @@ include('../dbConnection.php');
         <h3 class="mt-5  text-dark p-2" style="font-size:16px;">Course ID : <?php if(isset($row['course_id'])) {echo $row['course_id']; } ?> Course Name: <?php if(isset($row['course_name'])) {echo $row['course_name']; } ?></h3>
 
         <div class="row my-4">
-    <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+    <div class="col-lg-8 col-md-6 mb-md-0 mb-4" style="width: 1200px;">
       <div class="card">
         <div class="card-header pb-0">
           <div class="row">

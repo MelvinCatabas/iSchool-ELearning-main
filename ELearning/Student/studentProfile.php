@@ -134,7 +134,7 @@ if (isset($_REQUEST['updateStuNameBtn'])) {
             <label for="stuImg">Upload Image</label>
             <input type="file" class="form-control-file" id="stuImg" name="stuImg">
             <?php if (!empty($stuImg)) : ?>
-                <img src="<?php echo htmlspecialchars($stuImg); ?>" alt="Student Image" style="width: 100px; height: 100px; margin-top: 10px;">
+                <img src="../image/stu/<?php echo htmlspecialchars($stuImg); ?>" alt="Student Image" style="width: 100px; height: 100px; margin-top: 10px;">
             <?php endif; ?>
         </div>
         <button type="submit" class="btn btn-primary" name="updateStuNameBtn">Update</button>
