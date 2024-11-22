@@ -286,7 +286,7 @@ if (isset($_SESSION['is_instructor_login'])) {
             $course_id = $row['course_id'];
 
             echo '
-            <a href="coursedetails.php?course_id=' . $course_id . '" class="col-md-3 mb-3">
+            <a href="watchcourse.php?course_id=' . $course_id . '" class="col-md-3 mb-3">
                 <div class="card" style="height:475px;">
                     <img src="' . $row['course_img'] . '" class="card-img-top" alt="Course Image"/>
                     <div class="card-body">
