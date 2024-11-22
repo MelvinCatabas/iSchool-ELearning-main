@@ -114,13 +114,13 @@ if (isset($_POST['requpdate'])) {
         </div>
         <div class="form-group">
             <label for="instructor_img">Instructor Image</label>
-            <img src="<?php echo $inst_img; ?>" alt="instructorimage" class="img-thumbnail mb-2">     
             <input type="file" class="form-control-file" id="instructor_img" name="instructor_img">
+            <img src="<?php echo $inst_img; ?>" alt="instructorimage" style="height: 200px; width: 200px;" class="img-thumbnail mb-2"> 
         </div>
 
         <div class="text-center">
             <button type="submit" class="btn btn-danger" id="requpdate" name="requpdate">Update</button>
-            <a href="instructor.php" class="btn btn-secondary">Close</a>
+            <a href="instructorDashboard.php" class="btn btn-secondary">Close</a>
         </div>
         <?php if (isset($passmsg)) { echo $passmsg; } ?>
     </form>

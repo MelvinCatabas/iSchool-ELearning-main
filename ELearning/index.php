@@ -130,15 +130,15 @@ if (isset($_SESSION['is_login'])) {
             echo '
             <!-- Course Card -->
             <a style="text-decoration:none;" href="coursedetails.php?course_id=' . $course_id . '" class="col-md-3 mb-3">
-                <div class="card" style="height:400px">
+                <div class="card" style="height:450px">
                     <img src="' . str_replace('..', '.', $row['course_img']) . '" class="card-img-top" alt="Course Image"/>
                     <div class="card-body">
                         <h5 class="card-title" style="color: #252525; font-weight:bold;">' . $row['course_name'] . '</h5>
-                        <p class="card-text" style="color: #252525;">' . $row['course_desc'] . '</p>
+                        <p class="card-text mb-2" style="color: #515151; font-weight:light;">' . $row['course_desc'] . '</p>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <div>
-                            <img src="' . str_replace('..', '.', $instructor['instructor_img']) . '" alt="Instructor Image" class="rounded-circle" style="width: 25px; height: 25px;">
+                            <img src="' . str_replace('..', '.', $instructor['instructor_img']) . '" alt="Instructor Image" class="rounded-circle" style="width: 40px; height: 40px;">
                         </div>
                         <div class="d-flex align-items-center">
                             <small class="font-weight-bold mr-2 text-muted">' . $instructor['instructor_fname'] . ' ' . $instructor['instructor_lname'] . '</small>

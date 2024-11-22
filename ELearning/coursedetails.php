@@ -180,7 +180,7 @@ if (!isset($_SESSION)) {
             while ($row = $result->fetch_assoc()) {
                 $num++;
                 echo '<tr>
-                    <th scope="row">' . $num . '</th>
+                    <th scope="row" class="text-center">' . $num . '</th>
                     <td>' . htmlspecialchars($row["lesson_name"]) . '</td>
                 </tr>';
             }
