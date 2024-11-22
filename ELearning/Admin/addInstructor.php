@@ -55,10 +55,15 @@ include('../dbConnection.php');
       <label for="instructor_dob">Instructor Date of Birth</label>
       <input type="date" class="form-control" id="instructor_dob" name="instructor_dob">
     </div>
-    <div class="form-group">
-      <label for="instructor_sex">Instructor Sex</label>
-      <input type="text" class="form-control" id="instructor_sex" name="instructor_sex">
-    </div>
+    <div class="form-outline mb-4">
+            <label class="form-label" for="instructor_sex">Sex</label>
+            <select class="form-control form-control-lg" style="height:40px; font-size:16px;" name="instructor_sex" id="instructor_sex">
+              <option value="" disabled selected>Select your sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
     <div class="form-group">
       <label for="instructor_email">Instructor Email</label>
       <input type="text" class="form-control" id="instructor_email" name="instructor_email">

@@ -100,9 +100,13 @@ if (isset($_POST['requpdate'])) {
             <label for="instructor_dob">Instructor DOB</label>
             <input type="date" class="form-control" id="instructor_dob" name="instructor_dob" value="<?php echo $inst_dob; ?>">
         </div>
-        <div class="form-group">
-            <label for="instructor_sex">Instructor Sex</label>
-            <input type="text" class="form-control" id="instructor_sex" name="instructor_sex" value="<?php echo $inst_sex; ?>">
+        <div class="form-outline mb-4">
+            <label for="instructor_sex">Sex</label>
+            <select class="form-control" id="instructor_sex" name="instructor_sex">
+                <option value="Male" <?php if ($inst_sex == 'Male') echo 'selected'; ?>>Male</option>
+                <option value="Female" <?php if ($inst_sex == 'Female') echo 'selected'; ?>>Female</option>
+                <option value="Other" <?php if ($inst_sex == 'Other') echo 'selected'; ?>>Other</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="instructor_email">Instructor Email</label>

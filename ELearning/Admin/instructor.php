@@ -181,6 +181,7 @@ if (isset($_POST['delete'])) {
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Instructor DOB</th>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Instructor SEX</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Instructor Email</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                           </tr>
                         </thead>
                         <tbody>';
